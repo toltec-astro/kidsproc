@@ -1,0 +1,47 @@
+%YAML 1.1
+---
+$schema: "http://stsci.edu/schemas/yaml-schema/draft-01"
+id: "http://astro.umass.edu/schemas/kidsdata/nddataframe-1.0.0"
+title: |
+  An n-dimensional index frame.
+description: |
+  This frame is an abstraction of the indices of an n-dimensional array.
+examples:
+  -
+    - |
+        A 2-d index frame.
+    - |
+        !<tag:umass.edu:tolteca/nddata_frame-1.0.0>
+          naxes: 2
+          name: NDDataFrame
+  -
+    - |
+        A 2-d index frame with custom order.
+    - |
+        !<tag:umass.edu:tolteca/nddata_frame-1.0.0>
+          axes_order: [1, 0]
+          name: NDDataFrame
+type: object
+properties:
+  name:
+    description: |
+      A user-friendly name for the frame.
+    type: string
+
+  anyOf:
+    - naxes:
+      description: |
+        The number of axes.
+      type: int
+
+    - axes_order:
+        description: |
+          The order of the axes.
+        type: array
+        items:
+          type: integer
+
+anyOf:
+  - required: [name, naxes]
+  - required: [name, axes_order]
+additionalProperties: true
