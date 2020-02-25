@@ -11,14 +11,14 @@ examples:
     - |
         A 2-d index frame.
     - |
-        !<tag:umass.edu:tolteca/nddata_frame-1.0.0>
+        !<tag:astro.umass.edu:kidsdata/nddataframe-1.0.0>
           naxes: 2
           name: NDDataFrame
   -
     - |
         A 2-d index frame with custom order.
     - |
-        !<tag:umass.edu:tolteca/nddata_frame-1.0.0>
+        !<tag:astro.umass.edu:kidsdata/nddataframe-1.0.0>
           axes_order: [1, 0]
           name: NDDataFrame
 type: object

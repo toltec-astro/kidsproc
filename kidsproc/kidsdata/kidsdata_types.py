@@ -34,11 +34,11 @@ class KidsDataTypeMeta(ExtensionTypeMeta):
 class KidsDataType(CustomType, metaclass=ExtensionTypeMeta):
     """
     This class represents types that have schemas and tags
-    implemented within `tolteca.kidsutils.kidsdata`.
+    implemented within `kidsproc.kidsdata`.
 
     """
-    organization = 'umass.edu'
-    standard = 'toltec'
+    organization = 'astro.umass.edu'
+    standard = 'kidsdata'
 
     def __init_subclass__(cls):
         super().__init_subclass__()

@@ -5,13 +5,13 @@ from asdf import util
 from asdf.extension import BuiltinExtension
 
 from .wcs.tags import *  # noqa: F403, F401
-from .kidsdata_types import _kidsdata_types
+from .kidsdata_types import _kidsdata_types, KidsDataType
 
 
 SCHEMA_PATH = Path(__file__).with_name('schemas').resolve()
-ORG_URL_BASE = 'astro.umass.edu'
-STD_STR = 'kidsdata'
-SCM_URL = f'http://{ORG_URL_BASE}/schemas/{STD_STR}'
+ORGANIZATION_URL_BASE = KidsDataType.organization
+STANDARD = KidsDataType.standard
+SCHEMA_URL_BASE = f'{ORGANIZATION_URL_BASE}/schemas/{STANDARD}'
 
 
 class KidsDataExtension(BuiltinExtension):
@@ -23,13 +23,14 @@ class KidsDataExtension(BuiltinExtension):
     @property
     def tag_mapping(self):
         return [(
-            f'tag:{ORG_URL_BASE}:{STD_STR}',
-            f'http://{SCM_URL}{{tag_suffix}}')]
+            f'tag:{ORGANIZATION_URL_BASE}:{STANDARD}',
+            f'http://{SCHEMA_URL_BASE}{{tag_suffix}}')]
 
     @property
     def url_mapping(self):
-        return [(
-            SCM_URL,
+        result = [(
+            f'http://{SCHEMA_URL_BASE}',
             util.filepath_to_url(
-                SCHEMA_PATH.joinpath(ORG_URL_BASE).joinpath(
-                    f"{STD_STR}{{url_suffix}}.yaml").as_posix()))]
+                SCHEMA_PATH.joinpath(ORGANIZATION_URL_BASE).as_posix()) +
+            f"/{STANDARD}{{url_suffix}}.yaml")]
+        return result
