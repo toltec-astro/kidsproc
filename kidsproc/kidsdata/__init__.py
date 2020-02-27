@@ -7,8 +7,7 @@ from astropy.nddata import NDDataRef
 from .timestream_mixin import TimeStreamMixin
 from .sweep_mixin import SweepMixin
 from cached_property import cached_property
-from functools import lru_cache
-from tollan.utils.log import get_logger
+from tollan.utils.log import get_logger, timeit
 
 
 class Sweep(SweepMixin, NDDataRef):
@@ -30,10 +29,16 @@ class Sweep(SweepMixin, NDDataRef):
         """The raw (I, Q) values from readout."""
         return self.data
 
-    @lru_cache(maxsize=None)
-    def d21(
-            self,
-            flim=None, fstep=None, resample=1,
+    _d21 = None
+
+    def d21(self, **kwargs):
+        if self._d21 is None:
+            self._d21 = self._make_d21(**kwargs)
+        return self._d21
+
+    @timeit
+    def _make_d21(
+            self, flim=None, fstep=None, resample=None,
             exclude_edge_samples=10,
             smooth=3):
         """The unified ``D21`` spectrum.
@@ -68,7 +73,8 @@ class Sweep(SweepMixin, NDDataRef):
 
         logger.debug(
                 f"build d21 with fs=[{fmin}, {fmax}, {fstep}]"
-                f" exclude_edge_samples={exclude_edge_samples}")
+                f" exclude_edge_samples={exclude_edge_samples}"
+                f" original fs=[{self.fs.min()}, {self.fs.max()}]")
         fs = np.arange(fmin, fmax, fstep)
         adiqs0 = np.abs(self.diqs_df(self.iqs, self.fs, smooth=smooth))
         adiqs = np.zeros(fs.shape, dtype=np.double)
@@ -77,20 +83,23 @@ class Sweep(SweepMixin, NDDataRef):
             es = slice(exclude_edge_samples, -exclude_edge_samples)
         else:
             es = slice(None)
+
         for i in range(self.fs.shape[0]):
+            m = (fs >= self.fs[i].min()) & (fs <= self.fs[i].max())
             tmp = np.interp(
-                    fs, self.fs[i, es], adiqs0[i, es],
+                    fs[m], self.fs[i, es], adiqs0[i, es],
                     left=np.nan,
                     right=np.nan,
                     )
             cov = ~np.isnan(tmp)
-            adiqs[cov] = adiqs[cov] + tmp[cov]
-            adiqscov[cov] = adiqscov[cov] + 1
-            fs = fs.reshape((1, -1))
-            adiqs = (adiqs / adiqscov).reshape((1, -1))
-            adiqs[np.isnan(adiqs)] = 0
-            adiqscov = adiqscov.reshape((1, -1))
-            return fs, adiqs, adiqscov
+            tmp[~cov] = 0
+            tmp[cov] += adiqs[m][cov]
+            adiqs[m] += tmp
+            adiqscov[m] += cov.astype(dtype=int)
+        m = adiqscov > 0
+        adiqs[m] /= adiqscov[m]
+        adiqs[np.isnan(adiqs)] = 0
+        return fs, adiqs, adiqscov
 
     @staticmethod
     def diqs_df(iqs, fs, smooth=None):
