@@ -261,16 +261,6 @@ class _ReadoutReprComplexMixin(object):
             b = b[0]
         return a + 1.j * b
 
-    def __call__(self, x, y, **kwargs):
-        # make sure they are the same shape
-        x = np.asanyarray(x, dtype=float)
-        y = np.asanyarray(y, dtype=float)
-        if x.shape == ():
-            x = np.full_like(y, np.asscalar(x))
-        elif y.shape == ():
-            y = np.full_like(x, np.asscalar(y))
-        return super().__call__(x, y, **kwargs)
-
 
 class _ReadoutRepr2Mixin(object):
     """Mixin class that sets the output to use separate I and Q."""
@@ -298,6 +288,16 @@ class ReadoutIQToComplex(_ReadoutReprComplexMixin, _ComposableModelBase):
         return super(
                 ReadoutIQToComplex, ReadoutIQToComplex)._repr_apply(I, Q)
 
+    def __call__(self, x, y, **kwargs):
+        # make sure they are the same shape
+        x = np.asanyarray(x, dtype=float)
+        y = np.asanyarray(y, dtype=float)
+        if x.shape == ():
+            x = np.full_like(y, np.asscalar(x))
+        elif y.shape == ():
+            y = np.full_like(x, np.asscalar(y))
+        return super().__call__(x, y, **kwargs)
+
 
 class ReadoutComplexToIQ(_ReadoutRepr2Mixin, _ComposableModelBase):
     """Utility model to convert from complex S21 to (I, Q)."""
@@ -322,7 +322,7 @@ class _ResonanceCircleSweepMixin(object):
 
     @staticmethod
     def evaluate(f, fr, Qr):
-        r = ResonanceCircleQrInv(Qr)
+        r = ResonanceCircleQrInv.evaluate(Qr)
         x = InstrumentalDetune.evaluate(f, fr)
         return ResonanceCircle.evaluate(r, x)
 
@@ -346,8 +346,8 @@ class ResonanceCircleSweepComplex(
     # make it return complex
     @staticmethod
     def evaluate(f, fr, Qr):
-        return super()._repr_apply(
-                super().evaluate(f, fr, Qr)
+        return _ReadoutReprComplexMixin._repr_apply(
+                *_ResonanceCircleSweepMixin.evaluate(f, fr, Qr)
                 )
 
 
@@ -361,7 +361,7 @@ class _ResonanceCircleProbeMixin(object):
 
     @staticmethod
     def evaluate(fr, Qr, fp):
-        r = ResonanceCircleQrInv(Qr)
+        r = ResonanceCircleQrInv.evaluate(Qr)
         x = InstrumentalDetune.evaluate(fp, fr)
         return ResonanceCircle.evaluate(r, x)
 
@@ -494,12 +494,24 @@ class _KidsReadoutMixin(object):
 
     def derotate(self, S, f):
         args = (getattr(self, a) for a in self._get_inverse_transform_params())
-        return super()._inverse_transform(S, f, *args)
+        return super()._inverse_transform(S.T, f.T, *args).T
 
     @staticmethod
     def _apply_transform(args, locals_, cls):
         args += tuple(locals_[a] for a in cls._get_transform_params())
         return cls._transform(*args)
+
+
+def _tied_g_amp(m):
+    return np.hypot(m.g0, m.g1)
+
+
+def _tied_g_phase(m):
+    return np.arctan2(m.g1, m.g0)
+
+
+def _tied_Qi(m):
+    return m.Qr * m.Qc / (m.Qc - m.Qr)
 
 
 class KidsSweepGainWithLinTrend(
@@ -516,8 +528,8 @@ class KidsSweepGainWithLinTrend(
     Qr = Parameter(default=2e4)
     g0 = Parameter(default=1.)
     g1 = Parameter(default=0.)
-    g = Parameter(tied=lambda m: np.hypot(m.g0, m.g1))
-    phi_g = Parameter(tied=lambda m: np.arctan2(m.g1, m.g0))
+    g = Parameter(tied=_tied_g_amp)
+    phi_g = Parameter(tied=_tied_g_phase)
     f0 = Parameter(default=1e9, unit=u.Hz, min=0.)
     k0 = Parameter(default=0.)
     k1 = Parameter(default=0.)
@@ -527,7 +539,8 @@ class KidsSweepGainWithLinTrend(
     @staticmethod
     def evaluate(f, fr, Qr, g0, g1, g, phi_g, f0, k0, k1, m0, m1):
         S = ResonanceCircleSweepComplex.evaluate(f, fr, Qr)
-        return super()._apply_transform(S, f, locals(), super())
+        return _KidsReadoutMixin._apply_transform(
+                (S, f), locals(), KidsSweepGainWithLinTrend)
 
 
 class KidsSweepGainWithGeometry(
@@ -543,11 +556,11 @@ class KidsSweepGainWithGeometry(
     Qr = Parameter(default=2e4)
     g0 = Parameter(default=1.)
     g1 = Parameter(default=0.)
-    g = Parameter(tied=lambda m: np.hypot(m.g0, m.g1))
-    phi_g = Parameter(tied=lambda m: np.arctan2(m.g1, m.g0))
+    g = Parameter(tied=_tied_g_amp)
+    phi_g = Parameter(tied=_tied_g_phase)
     tau = Parameter(default=0., unit=u.s)
     Qc = Parameter(default=4e4)  # optimal coupling
-    Qi = Parameter(tied=lambda m: m.Qr * m.Qc / (m.Qc - m.Qr))
+    Qi = Parameter(tied=_tied_Qi)
     phi_c = Parameter(default=0.)
 
     @staticmethod
@@ -568,8 +581,8 @@ class KidsProbeGainWithLinTrend(
     fp = Parameter(default=1e9, unit=u.Hz, min=0.)
     g0 = Parameter(default=1.)
     g1 = Parameter(default=0.)
-    g = Parameter(tied=lambda m: np.hypot(m.g0, m.g1))
-    phi_g = Parameter(tied=lambda m: np.arctan2(m.g1, m.g0))
+    g = Parameter(tied=_tied_g_amp)
+    phi_g = Parameter(tied=_tied_g_phase)
     f0 = Parameter(default=1e9, unit=u.Hz, min=0.)
     k0 = Parameter(default=0.)
     k1 = Parameter(default=0.)
@@ -595,11 +608,11 @@ class KidsProbeGainWithGeometry(
     fp = Parameter(default=1e9, unit=u.Hz, min=0.)
     g0 = Parameter(default=1.)
     g1 = Parameter(default=0.)
-    g = Parameter(tied=lambda m: np.hypot(m.g0, m.g1))
-    phi_g = Parameter(tied=lambda m: np.arctan2(m.g1, m.g0))
+    g = Parameter(tied=_tied_g_amp)
+    phi_g = Parameter(tied=_tied_g_phase)
     tau = Parameter(default=0., unit=u.s)
     Qc = Parameter(default=4e4)  # optimal coupling
-    Qi = Parameter(tied=lambda m: m.Qr * m.Qc / (m.Qc - m.Qr))
+    Qi = Parameter(tied=_tied_Qi)
     phi_c = Parameter(default=0.)
 
     @staticmethod
