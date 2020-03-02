@@ -8,3 +8,9 @@ Reference/API
 =============
 
 .. automodapi:: kidsproc
+
+.. automodapi:: kidsproc.kidsdata
+
+.. automodapi:: kidsproc.kidsmodel
+
+.. automodapi:: kidsproc.kidsmodel.simulator

@@ -6,6 +6,8 @@
 __pycache__
 
 # temporary stuff
+site/
+pip-wheel-metadata/
 **/*.old/
 
 # Ignore .c files by default to avoid including generated code. If you want to
