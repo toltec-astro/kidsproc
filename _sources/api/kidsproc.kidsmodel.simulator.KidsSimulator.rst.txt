@@ -1,0 +1,33 @@
+KidsSimulator
+=============
+
+.. currentmodule:: kidsproc.kidsmodel.simulator
+
+.. autoclass:: KidsSimulator
+   :show-inheritance:
+
+   .. rubric:: Attributes Summary
+
+   .. autosummary::
+
+      ~KidsSimulator.fwhm_f
+      ~KidsSimulator.fwhm_x
+
+   .. rubric:: Methods Summary
+
+   .. autosummary::
+
+      ~KidsSimulator.probe_p
+      ~KidsSimulator.solve_x
+      ~KidsSimulator.sweep_x
+
+   .. rubric:: Attributes Documentation
+
+   .. autoattribute:: fwhm_f
+   .. autoattribute:: fwhm_x
+
+   .. rubric:: Methods Documentation
+
+   .. automethod:: probe_p
+   .. automethod:: solve_x
+   .. automethod:: sweep_x

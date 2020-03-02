@@ -1,0 +1,7 @@
+TimeStream
+==========
+
+.. currentmodule:: kidsproc.kidsdata
+
+.. autoclass:: TimeStream
+   :show-inheritance:

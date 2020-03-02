@@ -1,0 +1,47 @@
+KidsProbeGainWithLinTrend
+=========================
+
+.. currentmodule:: kidsproc.kidsmodel
+
+.. autoclass:: KidsProbeGainWithLinTrend
+   :show-inheritance:
+
+   .. rubric:: Attributes Summary
+
+   .. autosummary::
+
+      ~KidsProbeGainWithLinTrend.f0
+      ~KidsProbeGainWithLinTrend.fp
+      ~KidsProbeGainWithLinTrend.g
+      ~KidsProbeGainWithLinTrend.g0
+      ~KidsProbeGainWithLinTrend.g1
+      ~KidsProbeGainWithLinTrend.k0
+      ~KidsProbeGainWithLinTrend.k1
+      ~KidsProbeGainWithLinTrend.m0
+      ~KidsProbeGainWithLinTrend.m1
+      ~KidsProbeGainWithLinTrend.param_names
+      ~KidsProbeGainWithLinTrend.phi_g
+
+   .. rubric:: Methods Summary
+
+   .. autosummary::
+
+      ~KidsProbeGainWithLinTrend.evaluate
+
+   .. rubric:: Attributes Documentation
+
+   .. autoattribute:: f0
+   .. autoattribute:: fp
+   .. autoattribute:: g
+   .. autoattribute:: g0
+   .. autoattribute:: g1
+   .. autoattribute:: k0
+   .. autoattribute:: k1
+   .. autoattribute:: m0
+   .. autoattribute:: m1
+   .. autoattribute:: param_names
+   .. autoattribute:: phi_g
+
+   .. rubric:: Methods Documentation
+
+   .. automethod:: evaluate

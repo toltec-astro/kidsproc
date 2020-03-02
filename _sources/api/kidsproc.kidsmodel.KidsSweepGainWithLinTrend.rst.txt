@@ -1,0 +1,49 @@
+KidsSweepGainWithLinTrend
+=========================
+
+.. currentmodule:: kidsproc.kidsmodel
+
+.. autoclass:: KidsSweepGainWithLinTrend
+   :show-inheritance:
+
+   .. rubric:: Attributes Summary
+
+   .. autosummary::
+
+      ~KidsSweepGainWithLinTrend.Qr
+      ~KidsSweepGainWithLinTrend.f0
+      ~KidsSweepGainWithLinTrend.fr
+      ~KidsSweepGainWithLinTrend.g
+      ~KidsSweepGainWithLinTrend.g0
+      ~KidsSweepGainWithLinTrend.g1
+      ~KidsSweepGainWithLinTrend.k0
+      ~KidsSweepGainWithLinTrend.k1
+      ~KidsSweepGainWithLinTrend.m0
+      ~KidsSweepGainWithLinTrend.m1
+      ~KidsSweepGainWithLinTrend.param_names
+      ~KidsSweepGainWithLinTrend.phi_g
+
+   .. rubric:: Methods Summary
+
+   .. autosummary::
+
+      ~KidsSweepGainWithLinTrend.evaluate
+
+   .. rubric:: Attributes Documentation
+
+   .. autoattribute:: Qr
+   .. autoattribute:: f0
+   .. autoattribute:: fr
+   .. autoattribute:: g
+   .. autoattribute:: g0
+   .. autoattribute:: g1
+   .. autoattribute:: k0
+   .. autoattribute:: k1
+   .. autoattribute:: m0
+   .. autoattribute:: m1
+   .. autoattribute:: param_names
+   .. autoattribute:: phi_g
+
+   .. rubric:: Methods Documentation
+
+   .. automethod:: evaluate

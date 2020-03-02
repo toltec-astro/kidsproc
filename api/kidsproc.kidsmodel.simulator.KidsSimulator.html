@@ -1,0 +1,174 @@
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="utf-8" />
+    <title>KidsSimulator &#8212; kidsproc v0.1.dev4+g201ce84.d20200302</title>
+    <link rel="stylesheet" href="../_static/bootstrap-astropy.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/graphviz.css" />
+    
+    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/language_data.js"></script>
+    <script type="text/javascript" src="../_static/sidebar.js"></script>
+    <script type="text/javascript" src="../_static/copybutton.js"></script>
+    <link rel="shortcut icon" href="../_static/astropy_logo.ico"/>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="prev" title="ResonanceCircleSweepComplex" href="kidsproc.kidsmodel.ResonanceCircleSweepComplex.html" />
+    <link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro:200,600' rel='stylesheet' type='text/css'/>
+
+  </head><body>
+<div class="topbar">
+  <a class="brand" title="Documentation Home" href="../index.html"><span id="logotext1">kidsproc</span><span id="logotext2"></span><span id="logotext3">:docs</span></a>
+  <ul>
+    
+    <li><a class="homelink" title="Astropy Homepage" href="http://www.astropy.org"></a></li>
+    <li><a title="General Index" href="../genindex.html">Index</a></li>
+    <li><a title="Module Index" href="../py-modindex.html">Modules</a></li>
+    <li>
+      
+      
+<form action="../search.html" method="get">
+  <input type="text" name="q" placeholder="Search" />
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+      
+    </li>
+  </ul>
+</div>
+
+<div class="related">
+    <h3>Navigation</h3>
+    <ul>
+      <li class="right">
+	<a href="kidsproc.kidsmodel.ResonanceCircleSweepComplex.html" title="ResonanceCircleSweepComplex">
+	  &laquo; previous
+	</a>
+	
+      </li>
+      <li>
+	<a href="../index.html">kidsproc v0.1.dev4+g201ce84.d20200302</a>
+	 &#187;
+      </li>
+      <li><a href="../kidsproc/index.html" accesskey="U">kidsproc Documentation</a> &#187;</li>
+      
+      <li>KidsSimulator</li> 
+    </ul>
+</div>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="kidssimulator">
+<h1>KidsSimulator<a class="headerlink" href="#kidssimulator" title="Permalink to this headline">¶</a></h1>
+<dl class="class">
+<dt id="kidsproc.kidsmodel.simulator.KidsSimulator">
+<em class="property">class </em><code class="sig-prename descclassname">kidsproc.kidsmodel.simulator.</code><code class="sig-name descname">KidsSimulator</code><span class="sig-paren">(</span><em class="sig-param">fr=None</em>, <em class="sig-param">Qr=None</em>, <em class="sig-param">background=None</em>, <em class="sig-param">responsivity=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kidsproc/kidsmodel/simulator.html#KidsSimulator"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kidsproc.kidsmodel.simulator.KidsSimulator" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.8)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<p>Class that make simulated kids data.</p>
+<p class="rubric">Attributes Summary</p>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#kidsproc.kidsmodel.simulator.KidsSimulator.fwhm_f" title="kidsproc.kidsmodel.simulator.KidsSimulator.fwhm_f"><code class="xref py py-obj docutils literal notranslate"><span class="pre">fwhm_f</span></code></a></p></td>
+<td><p>Return the resonance FWHM in unit of Hz.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#kidsproc.kidsmodel.simulator.KidsSimulator.fwhm_x" title="kidsproc.kidsmodel.simulator.KidsSimulator.fwhm_x"><code class="xref py py-obj docutils literal notranslate"><span class="pre">fwhm_x</span></code></a></p></td>
+<td><p>Return the resonance FWHM in unit of x.</p></td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Methods Summary</p>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#kidsproc.kidsmodel.simulator.KidsSimulator.probe_p" title="kidsproc.kidsmodel.simulator.KidsSimulator.probe_p"><code class="xref py py-obj docutils literal notranslate"><span class="pre">probe_p</span></code></a>(self, pwrs)</p></td>
+<td><p>Return detector response for given optical power.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#kidsproc.kidsmodel.simulator.KidsSimulator.solve_x" title="kidsproc.kidsmodel.simulator.KidsSimulator.solve_x"><code class="xref py py-obj docutils literal notranslate"><span class="pre">solve_x</span></code></a>(self, \*args)</p></td>
+<td><p>Return x for given detector response.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#kidsproc.kidsmodel.simulator.KidsSimulator.sweep_x" title="kidsproc.kidsmodel.simulator.KidsSimulator.sweep_x"><code class="xref py py-obj docutils literal notranslate"><span class="pre">sweep_x</span></code></a>(self[, n_steps, n_fwhms, xlim])</p></td>
+<td><p>Return a resonance circle sweep.</p></td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Attributes Documentation</p>
+<dl class="attribute">
+<dt id="kidsproc.kidsmodel.simulator.KidsSimulator.fwhm_f">
+<code class="sig-name descname">fwhm_f</code><a class="headerlink" href="#kidsproc.kidsmodel.simulator.KidsSimulator.fwhm_f" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the resonance FWHM in unit of Hz.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="kidsproc.kidsmodel.simulator.KidsSimulator.fwhm_x">
+<code class="sig-name descname">fwhm_x</code><a class="headerlink" href="#kidsproc.kidsmodel.simulator.KidsSimulator.fwhm_x" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the resonance FWHM in unit of x.</p>
+</dd></dl>
+
+<p class="rubric">Methods Documentation</p>
+<dl class="method">
+<dt id="kidsproc.kidsmodel.simulator.KidsSimulator.probe_p">
+<code class="sig-name descname">probe_p</code><span class="sig-paren">(</span><em class="sig-param">self</em>, <em class="sig-param">pwrs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kidsproc/kidsmodel/simulator.html#KidsSimulator.probe_p"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kidsproc.kidsmodel.simulator.KidsSimulator.probe_p" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return detector response for given optical power.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="kidsproc.kidsmodel.simulator.KidsSimulator.solve_x">
+<code class="sig-name descname">solve_x</code><span class="sig-paren">(</span><em class="sig-param">self</em>, <em class="sig-param">*args</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kidsproc/kidsmodel/simulator.html#KidsSimulator.solve_x"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kidsproc.kidsmodel.simulator.KidsSimulator.solve_x" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return x for given detector response.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="kidsproc.kidsmodel.simulator.KidsSimulator.sweep_x">
+<code class="sig-name descname">sweep_x</code><span class="sig-paren">(</span><em class="sig-param">self</em>, <em class="sig-param">n_steps=None</em>, <em class="sig-param">n_fwhms=None</em>, <em class="sig-param">xlim=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kidsproc/kidsmodel/simulator.html#KidsSimulator.sweep_x"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kidsproc.kidsmodel.simulator.KidsSimulator.sweep_x" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a resonance circle sweep.</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper"><h3>Page Contents</h3>
+<ul>
+<li><a class="reference internal" href="#">KidsSimulator</a></li>
+</ul>
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+<footer class="footer">
+  <p class="pull-right">
+    <a href="../_sources/api/kidsproc.kidsmodel.simulator.KidsSimulator.rst.txt"
+       rel="nofollow">Page Source</a> &nbsp;
+    <a href="#">Back to Top</a></p>
+  <p>
+    &copy; Copyright 2020, Zhiyuan Ma.<br/>
+    Created using <a href="http://www.sphinx-doc.org/en/stable/">Sphinx</a> 2.4.3. &nbsp;
+    Last built 02 Mar 2020. <br/>
+  </p>
+</footer>
+  </body>
+</html>

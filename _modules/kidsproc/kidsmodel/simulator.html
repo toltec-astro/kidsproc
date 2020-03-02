@@ -1,0 +1,187 @@
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="utf-8" />
+    <title>kidsproc.kidsmodel.simulator &#8212; kidsproc v0.1.dev4+g201ce84.d20200302</title>
+    <link rel="stylesheet" href="../../../_static/bootstrap-astropy.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/graphviz.css" />
+    
+    <script id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+    <script src="../../../_static/jquery.js"></script>
+    <script src="../../../_static/underscore.js"></script>
+    <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/language_data.js"></script>
+    <script type="text/javascript" src="../../../_static/sidebar.js"></script>
+    <script type="text/javascript" src="../../../_static/copybutton.js"></script>
+    <link rel="shortcut icon" href="../../../_static/astropy_logo.ico"/>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro:200,600' rel='stylesheet' type='text/css'/>
+
+  </head><body>
+<div class="topbar">
+  <a class="brand" title="Documentation Home" href="../../../index.html"><span id="logotext1">kidsproc</span><span id="logotext2"></span><span id="logotext3">:docs</span></a>
+  <ul>
+    
+    <li><a class="homelink" title="Astropy Homepage" href="http://www.astropy.org"></a></li>
+    <li><a title="General Index" href="../../../genindex.html">Index</a></li>
+    <li><a title="Module Index" href="../../../py-modindex.html">Modules</a></li>
+    <li>
+      
+      
+<form action="../../../search.html" method="get">
+  <input type="text" name="q" placeholder="Search" />
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+      
+    </li>
+  </ul>
+</div>
+
+<div class="related">
+    <h3>Navigation</h3>
+    <ul>
+      <li>
+	<a href="../../../index.html">kidsproc v0.1.dev4+g201ce84.d20200302</a>
+	 &#187;
+      </li>
+      <li><a href="../../index.html" >Module code</a> &#187;</li>
+      <li><a href="../kidsmodel.html" accesskey="U">kidsproc.kidsmodel</a> &#187;</li>
+      
+       
+    </ul>
+</div>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <h1>Source code for kidsproc.kidsmodel.simulator</h1><div class="highlight"><pre>
+<span></span><span class="ch">#! /usr/bin/env python</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="c1"># from astropy import units as u</span>
+<span class="kn">from</span> <span class="nn">astropy.modeling.mappings</span> <span class="kn">import</span> <span class="n">Identity</span>
+<span class="kn">from</span> <span class="nn">astropy.modeling</span> <span class="kn">import</span> <span class="n">fix_inputs</span>
+<span class="kn">from</span> <span class="nn">.</span> <span class="kn">import</span> <span class="p">(</span>
+        <span class="c1"># ResonanceCircleComplex,</span>
+        <span class="n">ResonanceCircleInv</span><span class="p">,</span>
+        <span class="n">ResonanceCircleComplex</span><span class="p">,</span>
+        <span class="n">ResonanceCircleComplexInv</span><span class="p">,</span>
+        <span class="n">ResonanceCircleSweepComplex</span><span class="p">,</span>
+        <span class="n">ResonanceCircleProbeComplex</span><span class="p">,</span>
+        <span class="n">ReadoutIQToComplex</span><span class="p">,</span>
+        <span class="n">OpticalDetune</span><span class="p">,</span>
+        <span class="c1"># InstrumentalDetune,</span>
+        <span class="n">ResonanceCircleQrInv</span>
+        <span class="p">)</span>
+<span class="kn">from</span> <span class="nn">astropy</span> <span class="kn">import</span> <span class="n">log</span>
+
+
+<div class="viewcode-block" id="KidsSimulator"><a class="viewcode-back" href="../../../api/kidsproc.kidsmodel.simulator.KidsSimulator.html#kidsproc.kidsmodel.simulator.KidsSimulator">[docs]</a><span class="k">class</span> <span class="nc">KidsSimulator</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Class that make simulated kids data.&quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">fr</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">Qr</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                 <span class="n">background</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">responsivity</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_Qr</span> <span class="o">=</span> <span class="n">Qr</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_fr</span> <span class="o">=</span> <span class="n">fr</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_background</span> <span class="o">=</span> <span class="n">background</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_responsivity</span> <span class="o">=</span> <span class="n">responsivity</span>
+
+        <span class="c1"># make models</span>
+        <span class="n">m_r</span> <span class="o">=</span> <span class="n">ResonanceCircleQrInv</span><span class="p">()</span>
+        <span class="n">m_x</span> <span class="o">=</span> <span class="n">Identity</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+        <span class="n">m_p_probe</span> <span class="o">=</span> <span class="n">OpticalDetune</span><span class="p">(</span>
+                <span class="n">background</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_background</span><span class="p">,</span>
+                <span class="n">responsivity</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_responsivity</span><span class="p">)</span>
+        <span class="n">m_iq</span> <span class="o">=</span> <span class="p">(</span><span class="n">ReadoutIQToComplex</span><span class="p">()</span> <span class="o">|</span> <span class="n">ResonanceCircleComplex</span><span class="p">())</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_x_sweep</span> <span class="o">=</span> <span class="n">fix_inputs</span><span class="p">((</span><span class="n">m_r</span> <span class="o">&amp;</span> <span class="n">m_x</span><span class="p">)</span> <span class="o">|</span> <span class="n">m_iq</span><span class="p">,</span> <span class="p">{</span>
+            <span class="s1">&#39;Qr&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">_Qr</span>
+            <span class="p">})</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_f_sweep</span> <span class="o">=</span> <span class="n">ResonanceCircleSweepComplex</span><span class="p">(</span><span class="n">fr</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_fr</span><span class="p">,</span> <span class="n">Qr</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_Qr</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_x_probe</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_x_sweep</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_f_probe</span> <span class="o">=</span> <span class="n">ResonanceCircleProbeComplex</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_Qr2r</span> <span class="o">=</span> <span class="n">m_r</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_p2x</span> <span class="o">=</span> <span class="n">m_p_probe</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_p_probe</span> <span class="o">=</span> <span class="p">(</span><span class="n">m_r</span> <span class="o">&amp;</span> <span class="n">m_p_probe</span><span class="p">)</span> <span class="o">|</span> <span class="n">m_iq</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_iq2rx</span> <span class="o">=</span> <span class="n">ResonanceCircleInv</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_iq2rxcomplex</span> <span class="o">=</span> <span class="n">ResonanceCircleComplexInv</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_rx2iqcomplex</span> <span class="o">=</span> <span class="n">ResonanceCircleComplex</span><span class="p">()</span>
+
+        <span class="n">m_info</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;summary of kids simulator models:&#39;</span><span class="p">,</span> <span class="p">]</span>
+        <span class="n">sep</span> <span class="o">=</span> <span class="s1">&#39;-*&#39;</span> <span class="o">*</span> <span class="mi">40</span>
+        <span class="n">m_info</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{sep}</span><span class="se">\n</span><span class="s2">x sweep:</span><span class="se">\n</span><span class="si">{self._x_sweep}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="n">m_info</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{sep}</span><span class="se">\n</span><span class="s2">f sweep:</span><span class="se">\n</span><span class="si">{self._f_sweep}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="n">m_info</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{sep}</span><span class="se">\n</span><span class="s2">x probe:</span><span class="se">\n</span><span class="si">{self._x_probe}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="n">m_info</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{sep}</span><span class="se">\n</span><span class="s2">f_probe:</span><span class="se">\n</span><span class="si">{self._f_probe}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="n">m_info</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{sep}</span><span class="se">\n</span><span class="s2">p_probe:</span><span class="se">\n</span><span class="si">{self._p_probe}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="n">m_info</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{sep}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="n">log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">m_info</span><span class="p">))</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">fwhm_x</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Return the resonance FWHM in unit of x.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="mf">1.</span> <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">_Qr</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">fwhm_f</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Return the resonance FWHM in unit of Hz.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">fwhm_x</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">_fr</span>
+
+<div class="viewcode-block" id="KidsSimulator.sweep_x"><a class="viewcode-back" href="../../../api/kidsproc.kidsmodel.simulator.KidsSimulator.html#kidsproc.kidsmodel.simulator.KidsSimulator.sweep_x">[docs]</a>    <span class="k">def</span> <span class="nf">sweep_x</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">n_steps</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">n_fwhms</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">xlim</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Return a resonance circle sweep.&quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">n_fwhms</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">xlim</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;n_fwhms or xlim is required.&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">xlim</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">xlim</span> <span class="o">=</span> <span class="p">(</span><span class="o">-</span><span class="mf">0.5</span> <span class="o">*</span> <span class="n">n_fwhms</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">fwhm_x</span><span class="p">,</span>
+                    <span class="mf">0.5</span> <span class="o">*</span> <span class="n">n_fwhms</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">fwhm_x</span><span class="p">)</span>
+        <span class="c1"># get grid</span>
+        <span class="n">xs</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">*</span><span class="n">xlim</span><span class="p">,</span> <span class="n">n_steps</span><span class="p">)</span>
+        <span class="n">iqs</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_x_sweep</span><span class="p">(</span><span class="n">xs</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">xs</span><span class="p">,</span> <span class="n">iqs</span></div>
+
+<div class="viewcode-block" id="KidsSimulator.probe_p"><a class="viewcode-back" href="../../../api/kidsproc.kidsmodel.simulator.KidsSimulator.html#kidsproc.kidsmodel.simulator.KidsSimulator.probe_p">[docs]</a>    <span class="k">def</span> <span class="nf">probe_p</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pwrs</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Return detector response for given optical power.&quot;&quot;&quot;</span>
+        <span class="c1"># self._p2x.background = background</span>
+        <span class="c1"># self._p2x.responsivity = responsivity</span>
+        <span class="n">rs</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">full</span><span class="p">(</span><span class="n">pwrs</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_Qr2r</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_Qr</span><span class="p">))</span>
+        <span class="n">xs</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_p2x</span><span class="p">(</span><span class="n">pwrs</span><span class="p">)</span>
+        <span class="n">iqs</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_x_probe</span><span class="p">(</span><span class="n">xs</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">rs</span><span class="p">,</span> <span class="n">xs</span><span class="p">,</span> <span class="n">iqs</span></div>
+
+<div class="viewcode-block" id="KidsSimulator.solve_x"><a class="viewcode-back" href="../../../api/kidsproc.kidsmodel.simulator.KidsSimulator.html#kidsproc.kidsmodel.simulator.KidsSimulator.solve_x">[docs]</a>    <span class="k">def</span> <span class="nf">solve_x</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Return x for given detector response.&quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">args</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="c1"># complex</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_iq2rxcomplex</span><span class="p">(</span><span class="n">args</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_iq2rx</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">)</span></div></div>
+</pre></div>
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper"><h3>Page Contents</h3>
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+<footer class="footer">
+  <p class="pull-right"> &nbsp;
+    <a href="#">Back to Top</a></p>
+  <p>
+    &copy; Copyright 2020, Zhiyuan Ma.<br/>
+    Created using <a href="http://www.sphinx-doc.org/en/stable/">Sphinx</a> 2.4.3. &nbsp;
+    Last built 02 Mar 2020. <br/>
+  </p>
+</footer>
+  </body>
+</html>

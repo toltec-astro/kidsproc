@@ -1,0 +1,47 @@
+KidsSweepGainWithGeometry
+=========================
+
+.. currentmodule:: kidsproc.kidsmodel
+
+.. autoclass:: KidsSweepGainWithGeometry
+   :show-inheritance:
+
+   .. rubric:: Attributes Summary
+
+   .. autosummary::
+
+      ~KidsSweepGainWithGeometry.Qc
+      ~KidsSweepGainWithGeometry.Qi
+      ~KidsSweepGainWithGeometry.Qr
+      ~KidsSweepGainWithGeometry.fr
+      ~KidsSweepGainWithGeometry.g
+      ~KidsSweepGainWithGeometry.g0
+      ~KidsSweepGainWithGeometry.g1
+      ~KidsSweepGainWithGeometry.param_names
+      ~KidsSweepGainWithGeometry.phi_c
+      ~KidsSweepGainWithGeometry.phi_g
+      ~KidsSweepGainWithGeometry.tau
+
+   .. rubric:: Methods Summary
+
+   .. autosummary::
+
+      ~KidsSweepGainWithGeometry.evaluate
+
+   .. rubric:: Attributes Documentation
+
+   .. autoattribute:: Qc
+   .. autoattribute:: Qi
+   .. autoattribute:: Qr
+   .. autoattribute:: fr
+   .. autoattribute:: g
+   .. autoattribute:: g0
+   .. autoattribute:: g1
+   .. autoattribute:: param_names
+   .. autoattribute:: phi_c
+   .. autoattribute:: phi_g
+   .. autoattribute:: tau
+
+   .. rubric:: Methods Documentation
+
+   .. automethod:: evaluate

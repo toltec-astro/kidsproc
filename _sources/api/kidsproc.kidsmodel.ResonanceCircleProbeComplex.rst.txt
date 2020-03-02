@@ -1,0 +1,29 @@
+ResonanceCircleProbeComplex
+===========================
+
+.. currentmodule:: kidsproc.kidsmodel
+
+.. autoclass:: ResonanceCircleProbeComplex
+   :show-inheritance:
+
+   .. rubric:: Attributes Summary
+
+   .. autosummary::
+
+      ~ResonanceCircleProbeComplex.fp
+      ~ResonanceCircleProbeComplex.param_names
+
+   .. rubric:: Methods Summary
+
+   .. autosummary::
+
+      ~ResonanceCircleProbeComplex.evaluate
+
+   .. rubric:: Attributes Documentation
+
+   .. autoattribute:: fp
+   .. autoattribute:: param_names
+
+   .. rubric:: Methods Documentation
+
+   .. automethod:: evaluate

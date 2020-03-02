@@ -1,0 +1,7 @@
+SolvedTimeStream
+================
+
+.. currentmodule:: kidsproc.kidsdata
+
+.. autoclass:: SolvedTimeStream
+   :show-inheritance:

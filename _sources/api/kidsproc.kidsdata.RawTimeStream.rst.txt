@@ -1,0 +1,7 @@
+RawTimeStream
+=============
+
+.. currentmodule:: kidsproc.kidsdata
+
+.. autoclass:: RawTimeStream
+   :show-inheritance:

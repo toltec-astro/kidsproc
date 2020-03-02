@@ -1,0 +1,21 @@
+ResonanceCircleSweep
+====================
+
+.. currentmodule:: kidsproc.kidsmodel
+
+.. autoclass:: ResonanceCircleSweep
+   :show-inheritance:
+
+   .. rubric:: Attributes Summary
+
+   .. autosummary::
+
+      ~ResonanceCircleSweep.Qr
+      ~ResonanceCircleSweep.fr
+      ~ResonanceCircleSweep.param_names
+
+   .. rubric:: Attributes Documentation
+
+   .. autoattribute:: Qr
+   .. autoattribute:: fr
+   .. autoattribute:: param_names

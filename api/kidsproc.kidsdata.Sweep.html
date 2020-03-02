@@ -1,0 +1,169 @@
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="utf-8" />
+    <title>Sweep &#8212; kidsproc v0.1.dev4+g201ce84.d20200302</title>
+    <link rel="stylesheet" href="../_static/bootstrap-astropy.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/graphviz.css" />
+    
+    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/language_data.js"></script>
+    <script type="text/javascript" src="../_static/sidebar.js"></script>
+    <script type="text/javascript" src="../_static/copybutton.js"></script>
+    <link rel="shortcut icon" href="../_static/astropy_logo.ico"/>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="SweepMixin" href="kidsproc.kidsdata.SweepMixin.html" />
+    <link rel="prev" title="SolvedTimeStream" href="kidsproc.kidsdata.SolvedTimeStream.html" />
+    <link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro:200,600' rel='stylesheet' type='text/css'/>
+
+  </head><body>
+<div class="topbar">
+  <a class="brand" title="Documentation Home" href="../index.html"><span id="logotext1">kidsproc</span><span id="logotext2"></span><span id="logotext3">:docs</span></a>
+  <ul>
+    
+    <li><a class="homelink" title="Astropy Homepage" href="http://www.astropy.org"></a></li>
+    <li><a title="General Index" href="../genindex.html">Index</a></li>
+    <li><a title="Module Index" href="../py-modindex.html">Modules</a></li>
+    <li>
+      
+      
+<form action="../search.html" method="get">
+  <input type="text" name="q" placeholder="Search" />
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+      
+    </li>
+  </ul>
+</div>
+
+<div class="related">
+    <h3>Navigation</h3>
+    <ul>
+      <li class="right">
+	<a href="kidsproc.kidsdata.SweepMixin.html" title="SweepMixin">
+	  next &raquo;
+	</a>
+      </li>
+      <li class="right">
+	<a href="kidsproc.kidsdata.SolvedTimeStream.html" title="SolvedTimeStream">
+	  &laquo; previous
+	</a>
+	 |
+      </li>
+      <li>
+	<a href="../index.html">kidsproc v0.1.dev4+g201ce84.d20200302</a>
+	 &#187;
+      </li>
+      <li><a href="../kidsproc/index.html" accesskey="U">kidsproc Documentation</a> &#187;</li>
+      
+      <li>Sweep</li> 
+    </ul>
+</div>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="sweep">
+<h1>Sweep<a class="headerlink" href="#sweep" title="Permalink to this headline">¶</a></h1>
+<dl class="class">
+<dt id="kidsproc.kidsdata.Sweep">
+<em class="property">class </em><code class="sig-prename descclassname">kidsproc.kidsdata.</code><code class="sig-name descname">Sweep</code><span class="sig-paren">(</span><em class="sig-param">data</em>, <em class="sig-param">uncertainty=None</em>, <em class="sig-param">mask=None</em>, <em class="sig-param">wcs=None</em>, <em class="sig-param">meta=None</em>, <em class="sig-param">unit=None</em>, <em class="sig-param">copy=False</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kidsproc/kidsdata.html#Sweep"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kidsproc.kidsdata.Sweep" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="kidsproc.kidsdata.SweepMixin.html#kidsproc.kidsdata.SweepMixin" title="kidsproc.kidsdata.sweep_mixin.SweepMixin"><code class="docutils literal notranslate"><span class="pre">kidsproc.kidsdata.SweepMixin</span></code></a>, <code class="xref py py-class docutils literal notranslate"><span class="pre">astropy.nddata.nddata_withmixins.NDDataRef</span></code></p>
+<p>Container for frequency sweep data.</p>
+<p class="rubric">Attributes Summary</p>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#kidsproc.kidsdata.Sweep.fs" title="kidsproc.kidsdata.Sweep.fs"><code class="xref py py-obj docutils literal notranslate"><span class="pre">fs</span></code></a></p></td>
+<td><p>The frequency grid in Hz.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#kidsproc.kidsdata.Sweep.iqs" title="kidsproc.kidsdata.Sweep.iqs"><code class="xref py py-obj docutils literal notranslate"><span class="pre">iqs</span></code></a></p></td>
+<td><p>The raw (I, Q) values from readout.</p></td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Methods Summary</p>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#kidsproc.kidsdata.Sweep.d21" title="kidsproc.kidsdata.Sweep.d21"><code class="xref py py-obj docutils literal notranslate"><span class="pre">d21</span></code></a>(self, \*\*kwargs)</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#kidsproc.kidsdata.Sweep.diqs_df" title="kidsproc.kidsdata.Sweep.diqs_df"><code class="xref py py-obj docutils literal notranslate"><span class="pre">diqs_df</span></code></a>(iqs, fs[, smooth])</p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Attributes Documentation</p>
+<dl class="attribute">
+<dt id="kidsproc.kidsdata.Sweep.fs">
+<code class="sig-name descname">fs</code><a class="headerlink" href="#kidsproc.kidsdata.Sweep.fs" title="Permalink to this definition">¶</a></dt>
+<dd><p>The frequency grid in Hz.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="kidsproc.kidsdata.Sweep.iqs">
+<code class="sig-name descname">iqs</code><a class="headerlink" href="#kidsproc.kidsdata.Sweep.iqs" title="Permalink to this definition">¶</a></dt>
+<dd><p>The raw (I, Q) values from readout.</p>
+</dd></dl>
+
+<p class="rubric">Methods Documentation</p>
+<dl class="method">
+<dt id="kidsproc.kidsdata.Sweep.d21">
+<code class="sig-name descname">d21</code><span class="sig-paren">(</span><em class="sig-param">self</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kidsproc/kidsdata.html#Sweep.d21"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kidsproc.kidsdata.Sweep.d21" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="kidsproc.kidsdata.Sweep.diqs_df">
+<em class="property">static </em><code class="sig-name descname">diqs_df</code><span class="sig-paren">(</span><em class="sig-param">iqs</em>, <em class="sig-param">fs</em>, <em class="sig-param">smooth=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kidsproc/kidsdata.html#Sweep.diqs_df"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kidsproc.kidsdata.Sweep.diqs_df" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper"><h3>Page Contents</h3>
+<ul>
+<li><a class="reference internal" href="#">Sweep</a></li>
+</ul>
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+<footer class="footer">
+  <p class="pull-right">
+    <a href="../_sources/api/kidsproc.kidsdata.Sweep.rst.txt"
+       rel="nofollow">Page Source</a> &nbsp;
+    <a href="#">Back to Top</a></p>
+  <p>
+    &copy; Copyright 2020, Zhiyuan Ma.<br/>
+    Created using <a href="http://www.sphinx-doc.org/en/stable/">Sphinx</a> 2.4.3. &nbsp;
+    Last built 02 Mar 2020. <br/>
+  </p>
+</footer>
+  </body>
+</html>

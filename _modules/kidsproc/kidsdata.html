@@ -1,0 +1,229 @@
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="utf-8" />
+    <title>kidsproc.kidsdata &#8212; kidsproc v0.1.dev4+g201ce84.d20200302</title>
+    <link rel="stylesheet" href="../../_static/bootstrap-astropy.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/graphviz.css" />
+    
+    <script id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/language_data.js"></script>
+    <script type="text/javascript" src="../../_static/sidebar.js"></script>
+    <script type="text/javascript" src="../../_static/copybutton.js"></script>
+    <link rel="shortcut icon" href="../../_static/astropy_logo.ico"/>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro:200,600' rel='stylesheet' type='text/css'/>
+
+  </head><body>
+<div class="topbar">
+  <a class="brand" title="Documentation Home" href="../../index.html"><span id="logotext1">kidsproc</span><span id="logotext2"></span><span id="logotext3">:docs</span></a>
+  <ul>
+    
+    <li><a class="homelink" title="Astropy Homepage" href="http://www.astropy.org"></a></li>
+    <li><a title="General Index" href="../../genindex.html">Index</a></li>
+    <li><a title="Module Index" href="../../py-modindex.html">Modules</a></li>
+    <li>
+      
+      
+<form action="../../search.html" method="get">
+  <input type="text" name="q" placeholder="Search" />
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+      
+    </li>
+  </ul>
+</div>
+
+<div class="related">
+    <h3>Navigation</h3>
+    <ul>
+      <li>
+	<a href="../../index.html">kidsproc v0.1.dev4+g201ce84.d20200302</a>
+	 &#187;
+      </li>
+      <li><a href="../index.html" accesskey="U">Module code</a> &#187;</li>
+      
+       
+    </ul>
+</div>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <h1>Source code for kidsproc.kidsdata</h1><div class="highlight"><pre>
+<span></span><span class="ch">#! /usr/bin/env python</span>
+
+<span class="sd">&quot;&quot;&quot;This module implements the container classes for KIDs data.&quot;&quot;&quot;</span>
+
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">astropy.nddata</span> <span class="kn">import</span> <span class="n">NDDataRef</span>
+<span class="kn">from</span> <span class="nn">.timestream_mixin</span> <span class="kn">import</span> <span class="n">TimeStreamMixin</span>
+<span class="kn">from</span> <span class="nn">.sweep_mixin</span> <span class="kn">import</span> <span class="n">SweepMixin</span>
+<span class="kn">from</span> <span class="nn">cached_property</span> <span class="kn">import</span> <span class="n">cached_property</span>
+<span class="kn">from</span> <span class="nn">tollan.utils.log</span> <span class="kn">import</span> <span class="n">get_logger</span><span class="p">,</span> <span class="n">timeit</span>
+
+
+<div class="viewcode-block" id="Sweep"><a class="viewcode-back" href="../../api/kidsproc.kidsdata.Sweep.html#kidsproc.kidsdata.Sweep">[docs]</a><span class="k">class</span> <span class="nc">Sweep</span><span class="p">(</span><span class="n">SweepMixin</span><span class="p">,</span> <span class="n">NDDataRef</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Container for frequency sweep data.&quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{self.__class__.__name__}{self.data.shape}</span><span class="s2">&quot;</span>
+
+    <span class="nd">@cached_property</span>
+    <span class="k">def</span> <span class="nf">fs</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;The frequency grid in Hz.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">tile</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">meta</span><span class="p">[</span><span class="s1">&#39;sweeps&#39;</span><span class="p">][</span><span class="s1">&#39;flo&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">T</span><span class="p">,</span>
+            <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">meta</span><span class="p">[</span><span class="s1">&#39;tones&#39;</span><span class="p">]),</span> <span class="mi">1</span><span class="p">)</span>
+            <span class="p">)</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">meta</span><span class="p">[</span><span class="s1">&#39;tones&#39;</span><span class="p">][</span><span class="s1">&#39;fc&#39;</span><span class="p">][:,</span> <span class="kc">None</span><span class="p">]</span>
+
+    <span class="nd">@cached_property</span>
+    <span class="k">def</span> <span class="nf">iqs</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;The raw (I, Q) values from readout.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span>
+
+    <span class="n">_d21</span> <span class="o">=</span> <span class="kc">None</span>
+
+<div class="viewcode-block" id="Sweep.d21"><a class="viewcode-back" href="../../api/kidsproc.kidsdata.Sweep.html#kidsproc.kidsdata.Sweep.d21">[docs]</a>    <span class="k">def</span> <span class="nf">d21</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_d21</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_d21</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_make_d21</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_d21</span></div>
+
+    <span class="nd">@timeit</span>
+    <span class="k">def</span> <span class="nf">_make_d21</span><span class="p">(</span>
+            <span class="bp">self</span><span class="p">,</span> <span class="n">flim</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">fstep</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">resample</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+            <span class="n">exclude_edge_samples</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span>
+            <span class="n">smooth</span><span class="o">=</span><span class="mi">3</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;The unified ``D21`` spectrum.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        flim: tuple, optional</span>
+<span class="sd">            If set, the d21 is resampled on to this frequency range.</span>
+
+<span class="sd">        fstep: float, optional</span>
+<span class="sd">            The step size of the frequency grid in Hz.</span>
+
+<span class="sd">        resample: float, optional</span>
+<span class="sd">            Alternative way to specify `fstep`. The frequency step</span>
+<span class="sd">            used will be smaller than the input data by this factor.</span>
+
+<span class="sd">        exclude_edge_samples: int</span>
+<span class="sd">            Number of samples to exclude at the tone edges.</span>
+
+<span class="sd">        smooth: int</span>
+<span class="sd">            Apply smooth to the IQs *before* the gradient operation.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">logger</span> <span class="o">=</span> <span class="n">get_logger</span><span class="p">()</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="p">(</span><span class="nb">bool</span><span class="p">(</span><span class="n">fstep</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">)</span> <span class="o">^</span> <span class="nb">bool</span><span class="p">(</span><span class="n">resample</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">)):</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;only one of fstep or resample can be specified&quot;</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">flim</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">flim</span> <span class="o">=</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">fs</span><span class="o">.</span><span class="n">min</span><span class="p">(),</span> <span class="bp">self</span><span class="o">.</span><span class="n">fs</span><span class="o">.</span><span class="n">max</span><span class="p">())</span>
+        <span class="n">fmin</span><span class="p">,</span> <span class="n">fmax</span> <span class="o">=</span> <span class="n">flim</span>
+        <span class="k">if</span> <span class="n">resample</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">fstep</span> <span class="o">=</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">fs</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">fs</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">])</span> <span class="o">/</span> <span class="n">resample</span>
+
+        <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span>
+                <span class="sa">f</span><span class="s2">&quot;build d21 with fs=[</span><span class="si">{fmin}</span><span class="s2">, </span><span class="si">{fmax}</span><span class="s2">, </span><span class="si">{fstep}</span><span class="s2">]&quot;</span>
+                <span class="sa">f</span><span class="s2">&quot; exclude_edge_samples=</span><span class="si">{exclude_edge_samples}</span><span class="s2">&quot;</span>
+                <span class="sa">f</span><span class="s2">&quot; original fs=[{self.fs.min()}, {self.fs.max()}]&quot;</span><span class="p">)</span>
+        <span class="n">fs</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">fmin</span><span class="p">,</span> <span class="n">fmax</span><span class="p">,</span> <span class="n">fstep</span><span class="p">)</span>
+        <span class="n">adiqs0</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">diqs_df</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">iqs</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">fs</span><span class="p">,</span> <span class="n">smooth</span><span class="o">=</span><span class="n">smooth</span><span class="p">))</span>
+        <span class="n">adiqs</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">fs</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">double</span><span class="p">)</span>
+        <span class="n">adiqscov</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">fs</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">int</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">exclude_edge_samples</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">es</span> <span class="o">=</span> <span class="nb">slice</span><span class="p">(</span><span class="n">exclude_edge_samples</span><span class="p">,</span> <span class="o">-</span><span class="n">exclude_edge_samples</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">es</span> <span class="o">=</span> <span class="nb">slice</span><span class="p">(</span><span class="kc">None</span><span class="p">)</span>
+
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">fs</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]):</span>
+            <span class="n">m</span> <span class="o">=</span> <span class="p">(</span><span class="n">fs</span> <span class="o">&gt;=</span> <span class="bp">self</span><span class="o">.</span><span class="n">fs</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">min</span><span class="p">())</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">fs</span> <span class="o">&lt;=</span> <span class="bp">self</span><span class="o">.</span><span class="n">fs</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">max</span><span class="p">())</span>
+            <span class="n">tmp</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">interp</span><span class="p">(</span>
+                    <span class="n">fs</span><span class="p">[</span><span class="n">m</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">fs</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">es</span><span class="p">],</span> <span class="n">adiqs0</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">es</span><span class="p">],</span>
+                    <span class="n">left</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">,</span>
+                    <span class="n">right</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">,</span>
+                    <span class="p">)</span>
+            <span class="n">cov</span> <span class="o">=</span> <span class="o">~</span><span class="n">np</span><span class="o">.</span><span class="n">isnan</span><span class="p">(</span><span class="n">tmp</span><span class="p">)</span>
+            <span class="n">tmp</span><span class="p">[</span><span class="o">~</span><span class="n">cov</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
+            <span class="n">tmp</span><span class="p">[</span><span class="n">cov</span><span class="p">]</span> <span class="o">+=</span> <span class="n">adiqs</span><span class="p">[</span><span class="n">m</span><span class="p">][</span><span class="n">cov</span><span class="p">]</span>
+            <span class="n">adiqs</span><span class="p">[</span><span class="n">m</span><span class="p">]</span> <span class="o">+=</span> <span class="n">tmp</span>
+            <span class="n">adiqscov</span><span class="p">[</span><span class="n">m</span><span class="p">]</span> <span class="o">+=</span> <span class="n">cov</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">dtype</span><span class="o">=</span><span class="nb">int</span><span class="p">)</span>
+        <span class="n">m</span> <span class="o">=</span> <span class="n">adiqscov</span> <span class="o">&gt;</span> <span class="mi">0</span>
+        <span class="n">adiqs</span><span class="p">[</span><span class="n">m</span><span class="p">]</span> <span class="o">/=</span> <span class="n">adiqscov</span><span class="p">[</span><span class="n">m</span><span class="p">]</span>
+        <span class="n">adiqs</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">isnan</span><span class="p">(</span><span class="n">adiqs</span><span class="p">)]</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="k">return</span> <span class="n">fs</span><span class="p">,</span> <span class="n">adiqs</span><span class="p">,</span> <span class="n">adiqscov</span>
+
+<div class="viewcode-block" id="Sweep.diqs_df"><a class="viewcode-back" href="../../api/kidsproc.kidsdata.Sweep.html#kidsproc.kidsdata.Sweep.diqs_df">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">diqs_df</span><span class="p">(</span><span class="n">iqs</span><span class="p">,</span> <span class="n">fs</span><span class="p">,</span> <span class="n">smooth</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">smooth</span> <span class="ow">in</span> <span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="mi">0</span><span class="p">):</span>
+            <span class="k">pass</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">def</span> <span class="nf">csmooth</span><span class="p">(</span><span class="n">arr</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+                <span class="kn">from</span> <span class="nn">scipy.ndimage.filters</span> <span class="kn">import</span> <span class="n">uniform_filter1d</span>
+                <span class="n">arr_r</span> <span class="o">=</span> <span class="n">uniform_filter1d</span><span class="p">(</span><span class="n">arr</span><span class="o">.</span><span class="n">real</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+                <span class="n">arr_i</span> <span class="o">=</span> <span class="n">uniform_filter1d</span><span class="p">(</span><span class="n">arr</span><span class="o">.</span><span class="n">imag</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+                <span class="k">return</span> <span class="n">arr_r</span> <span class="o">+</span> <span class="mf">1.</span><span class="n">j</span> <span class="o">*</span> <span class="n">arr_i</span>
+            <span class="n">iqs</span> <span class="o">=</span> <span class="n">csmooth</span><span class="p">(</span><span class="n">iqs</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="n">smooth</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s1">&#39;mirror&#39;</span><span class="p">)</span>
+        <span class="n">diqs</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">empty_like</span><span class="p">(</span><span class="n">iqs</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">iqs</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]):</span>
+            <span class="n">diqs</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">gradient</span><span class="p">(</span><span class="n">iqs</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">fs</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+        <span class="k">return</span> <span class="n">diqs</span></div></div>
+
+
+<div class="viewcode-block" id="VnaSweep"><a class="viewcode-back" href="../../api/kidsproc.kidsdata.VnaSweep.html#kidsproc.kidsdata.VnaSweep">[docs]</a><span class="k">class</span> <span class="nc">VnaSweep</span><span class="p">(</span><span class="n">Sweep</span><span class="p">):</span>
+    <span class="k">pass</span></div>
+
+
+<div class="viewcode-block" id="TargetSweep"><a class="viewcode-back" href="../../api/kidsproc.kidsdata.TargetSweep.html#kidsproc.kidsdata.TargetSweep">[docs]</a><span class="k">class</span> <span class="nc">TargetSweep</span><span class="p">(</span><span class="n">Sweep</span><span class="p">):</span>
+    <span class="k">pass</span></div>
+
+
+<div class="viewcode-block" id="TimeStream"><a class="viewcode-back" href="../../api/kidsproc.kidsdata.TimeStream.html#kidsproc.kidsdata.TimeStream">[docs]</a><span class="k">class</span> <span class="nc">TimeStream</span><span class="p">(</span><span class="n">TimeStreamMixin</span><span class="p">,</span> <span class="n">NDDataRef</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Container for time stream data.&quot;&quot;&quot;</span>
+    <span class="k">pass</span></div>
+
+
+<div class="viewcode-block" id="RawTimeStream"><a class="viewcode-back" href="../../api/kidsproc.kidsdata.RawTimeStream.html#kidsproc.kidsdata.RawTimeStream">[docs]</a><span class="k">class</span> <span class="nc">RawTimeStream</span><span class="p">(</span><span class="n">TimeStream</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Container for the raw in-phase (i) and quadrature (q) data.&quot;&quot;&quot;</span>
+    <span class="k">pass</span></div>
+
+
+<div class="viewcode-block" id="SolvedTimeStream"><a class="viewcode-back" href="../../api/kidsproc.kidsdata.SolvedTimeStream.html#kidsproc.kidsdata.SolvedTimeStream">[docs]</a><span class="k">class</span> <span class="nc">SolvedTimeStream</span><span class="p">(</span><span class="n">TimeStream</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Container for the solved detuning (x) and loss (r) data.&quot;&quot;&quot;</span>
+    <span class="k">pass</span></div>
+</pre></div>
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper"><h3>Page Contents</h3>
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+<footer class="footer">
+  <p class="pull-right"> &nbsp;
+    <a href="#">Back to Top</a></p>
+  <p>
+    &copy; Copyright 2020, Zhiyuan Ma.<br/>
+    Created using <a href="http://www.sphinx-doc.org/en/stable/">Sphinx</a> 2.4.3. &nbsp;
+    Last built 02 Mar 2020. <br/>
+  </p>
+</footer>
+  </body>
+</html>

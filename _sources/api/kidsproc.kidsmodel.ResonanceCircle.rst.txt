@@ -1,0 +1,17 @@
+ResonanceCircle
+===============
+
+.. currentmodule:: kidsproc.kidsmodel
+
+.. autoclass:: ResonanceCircle
+   :show-inheritance:
+
+   .. rubric:: Attributes Summary
+
+   .. autosummary::
+
+      ~ResonanceCircle.inverse
+
+   .. rubric:: Attributes Documentation
+
+   .. autoattribute:: inverse

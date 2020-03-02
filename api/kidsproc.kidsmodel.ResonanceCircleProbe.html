@@ -1,0 +1,141 @@
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="utf-8" />
+    <title>ResonanceCircleProbe &#8212; kidsproc v0.1.dev4+g201ce84.d20200302</title>
+    <link rel="stylesheet" href="../_static/bootstrap-astropy.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/graphviz.css" />
+    
+    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/language_data.js"></script>
+    <script type="text/javascript" src="../_static/sidebar.js"></script>
+    <script type="text/javascript" src="../_static/copybutton.js"></script>
+    <link rel="shortcut icon" href="../_static/astropy_logo.ico"/>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="ResonanceCircleProbeComplex" href="kidsproc.kidsmodel.ResonanceCircleProbeComplex.html" />
+    <link rel="prev" title="ResonanceCircleInv" href="kidsproc.kidsmodel.ResonanceCircleInv.html" />
+    <link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro:200,600' rel='stylesheet' type='text/css'/>
+
+  </head><body>
+<div class="topbar">
+  <a class="brand" title="Documentation Home" href="../index.html"><span id="logotext1">kidsproc</span><span id="logotext2"></span><span id="logotext3">:docs</span></a>
+  <ul>
+    
+    <li><a class="homelink" title="Astropy Homepage" href="http://www.astropy.org"></a></li>
+    <li><a title="General Index" href="../genindex.html">Index</a></li>
+    <li><a title="Module Index" href="../py-modindex.html">Modules</a></li>
+    <li>
+      
+      
+<form action="../search.html" method="get">
+  <input type="text" name="q" placeholder="Search" />
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+      
+    </li>
+  </ul>
+</div>
+
+<div class="related">
+    <h3>Navigation</h3>
+    <ul>
+      <li class="right">
+	<a href="kidsproc.kidsmodel.ResonanceCircleProbeComplex.html" title="ResonanceCircleProbeComplex">
+	  next &raquo;
+	</a>
+      </li>
+      <li class="right">
+	<a href="kidsproc.kidsmodel.ResonanceCircleInv.html" title="ResonanceCircleInv">
+	  &laquo; previous
+	</a>
+	 |
+      </li>
+      <li>
+	<a href="../index.html">kidsproc v0.1.dev4+g201ce84.d20200302</a>
+	 &#187;
+      </li>
+      <li><a href="../kidsproc/index.html" accesskey="U">kidsproc Documentation</a> &#187;</li>
+      
+      <li>ResonanceCircleProbe</li> 
+    </ul>
+</div>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="resonancecircleprobe">
+<h1>ResonanceCircleProbe<a class="headerlink" href="#resonancecircleprobe" title="Permalink to this headline">¶</a></h1>
+<dl class="class">
+<dt id="kidsproc.kidsmodel.ResonanceCircleProbe">
+<em class="property">class </em><code class="sig-prename descclassname">kidsproc.kidsmodel.</code><code class="sig-name descname">ResonanceCircleProbe</code><span class="sig-paren">(</span><em class="sig-param">fp=&lt;Quantity 1.e+09 Hz&gt;</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kidsproc/kidsmodel.html#ResonanceCircleProbe"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kidsproc.kidsmodel.ResonanceCircleProbe" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">kidsproc.kidsmodel._ResonanceCircleProbeMixin</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">kidsproc.kidsmodel._ReadoutRepr2Mixin</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">kidsproc.kidsmodel._ComposableModelBase</span></code></p>
+<p>Model that describes the probing of The resonance circle.</p>
+<p class="rubric">Attributes Summary</p>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#kidsproc.kidsmodel.ResonanceCircleProbe.fp" title="kidsproc.kidsmodel.ResonanceCircleProbe.fp"><code class="xref py py-obj docutils literal notranslate"><span class="pre">fp</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#kidsproc.kidsmodel.ResonanceCircleProbe.param_names" title="kidsproc.kidsmodel.ResonanceCircleProbe.param_names"><code class="xref py py-obj docutils literal notranslate"><span class="pre">param_names</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Attributes Documentation</p>
+<dl class="attribute">
+<dt id="kidsproc.kidsmodel.ResonanceCircleProbe.fp">
+<code class="sig-name descname">fp</code><em class="property"> = Parameter('fp', value=1000000000.0, unit=Hz, bounds=(0.0, None))</em><a class="headerlink" href="#kidsproc.kidsmodel.ResonanceCircleProbe.fp" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="kidsproc.kidsmodel.ResonanceCircleProbe.param_names">
+<code class="sig-name descname">param_names</code><em class="property"> = ('fp',)</em><a class="headerlink" href="#kidsproc.kidsmodel.ResonanceCircleProbe.param_names" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper"><h3>Page Contents</h3>
+<ul>
+<li><a class="reference internal" href="#">ResonanceCircleProbe</a></li>
+</ul>
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+<footer class="footer">
+  <p class="pull-right">
+    <a href="../_sources/api/kidsproc.kidsmodel.ResonanceCircleProbe.rst.txt"
+       rel="nofollow">Page Source</a> &nbsp;
+    <a href="#">Back to Top</a></p>
+  <p>
+    &copy; Copyright 2020, Zhiyuan Ma.<br/>
+    Created using <a href="http://www.sphinx-doc.org/en/stable/">Sphinx</a> 2.4.3. &nbsp;
+    Last built 02 Mar 2020. <br/>
+  </p>
+</footer>
+  </body>
+</html>

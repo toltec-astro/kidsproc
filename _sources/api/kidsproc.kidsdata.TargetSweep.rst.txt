@@ -1,0 +1,7 @@
+TargetSweep
+===========
+
+.. currentmodule:: kidsproc.kidsdata
+
+.. autoclass:: TargetSweep
+   :show-inheritance:

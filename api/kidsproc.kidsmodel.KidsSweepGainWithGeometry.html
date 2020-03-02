@@ -1,0 +1,233 @@
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="utf-8" />
+    <title>KidsSweepGainWithGeometry &#8212; kidsproc v0.1.dev4+g201ce84.d20200302</title>
+    <link rel="stylesheet" href="../_static/bootstrap-astropy.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/graphviz.css" />
+    
+    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/language_data.js"></script>
+    <script type="text/javascript" src="../_static/sidebar.js"></script>
+    <script type="text/javascript" src="../_static/copybutton.js"></script>
+    <link rel="shortcut icon" href="../_static/astropy_logo.ico"/>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="KidsSweepGainWithLinTrend" href="kidsproc.kidsmodel.KidsSweepGainWithLinTrend.html" />
+    <link rel="prev" title="KidsProbeGainWithLinTrend" href="kidsproc.kidsmodel.KidsProbeGainWithLinTrend.html" />
+    <link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro:200,600' rel='stylesheet' type='text/css'/>
+
+  </head><body>
+<div class="topbar">
+  <a class="brand" title="Documentation Home" href="../index.html"><span id="logotext1">kidsproc</span><span id="logotext2"></span><span id="logotext3">:docs</span></a>
+  <ul>
+    
+    <li><a class="homelink" title="Astropy Homepage" href="http://www.astropy.org"></a></li>
+    <li><a title="General Index" href="../genindex.html">Index</a></li>
+    <li><a title="Module Index" href="../py-modindex.html">Modules</a></li>
+    <li>
+      
+      
+<form action="../search.html" method="get">
+  <input type="text" name="q" placeholder="Search" />
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+      
+    </li>
+  </ul>
+</div>
+
+<div class="related">
+    <h3>Navigation</h3>
+    <ul>
+      <li class="right">
+	<a href="kidsproc.kidsmodel.KidsSweepGainWithLinTrend.html" title="KidsSweepGainWithLinTrend">
+	  next &raquo;
+	</a>
+      </li>
+      <li class="right">
+	<a href="kidsproc.kidsmodel.KidsProbeGainWithLinTrend.html" title="KidsProbeGainWithLinTrend">
+	  &laquo; previous
+	</a>
+	 |
+      </li>
+      <li>
+	<a href="../index.html">kidsproc v0.1.dev4+g201ce84.d20200302</a>
+	 &#187;
+      </li>
+      <li><a href="../kidsproc/index.html" accesskey="U">kidsproc Documentation</a> &#187;</li>
+      
+      <li>KidsSweepGainWithGeometry</li> 
+    </ul>
+</div>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="kidssweepgainwithgeometry">
+<h1>KidsSweepGainWithGeometry<a class="headerlink" href="#kidssweepgainwithgeometry" title="Permalink to this headline">¶</a></h1>
+<dl class="class">
+<dt id="kidsproc.kidsmodel.KidsSweepGainWithGeometry">
+<em class="property">class </em><code class="sig-prename descclassname">kidsproc.kidsmodel.</code><code class="sig-name descname">KidsSweepGainWithGeometry</code><span class="sig-paren">(</span><em class="sig-param">fr</em>, <em class="sig-param">Qr</em>, <em class="sig-param">g0</em>, <em class="sig-param">g1</em>, <em class="sig-param">g</em>, <em class="sig-param">phi_g</em>, <em class="sig-param">tau</em>, <em class="sig-param">Qc</em>, <em class="sig-param">Qi</em>, <em class="sig-param">phi_c</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kidsproc/kidsmodel.html#KidsSweepGainWithGeometry"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kidsproc.kidsmodel.KidsSweepGainWithGeometry" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">kidsproc.kidsmodel._ResonanceCircleSweepMixin</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">kidsproc.kidsmodel._ReadoutReprComplexMixin</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">kidsproc.kidsmodel._KidsReadoutMixin</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">kidsproc.kidsmodel._ReadoutGainWithGeometryMixin</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">kidsproc.kidsmodel._ComposableModelBase</span></code></p>
+<p>Model that describes the S21 for frequency sweep with the geometry
+parameters.</p>
+<p class="rubric">Attributes Summary</p>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#kidsproc.kidsmodel.KidsSweepGainWithGeometry.Qc" title="kidsproc.kidsmodel.KidsSweepGainWithGeometry.Qc"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Qc</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#kidsproc.kidsmodel.KidsSweepGainWithGeometry.Qi" title="kidsproc.kidsmodel.KidsSweepGainWithGeometry.Qi"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Qi</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#kidsproc.kidsmodel.KidsSweepGainWithGeometry.Qr" title="kidsproc.kidsmodel.KidsSweepGainWithGeometry.Qr"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Qr</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#kidsproc.kidsmodel.KidsSweepGainWithGeometry.fr" title="kidsproc.kidsmodel.KidsSweepGainWithGeometry.fr"><code class="xref py py-obj docutils literal notranslate"><span class="pre">fr</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#kidsproc.kidsmodel.KidsSweepGainWithGeometry.g" title="kidsproc.kidsmodel.KidsSweepGainWithGeometry.g"><code class="xref py py-obj docutils literal notranslate"><span class="pre">g</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#kidsproc.kidsmodel.KidsSweepGainWithGeometry.g0" title="kidsproc.kidsmodel.KidsSweepGainWithGeometry.g0"><code class="xref py py-obj docutils literal notranslate"><span class="pre">g0</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#kidsproc.kidsmodel.KidsSweepGainWithGeometry.g1" title="kidsproc.kidsmodel.KidsSweepGainWithGeometry.g1"><code class="xref py py-obj docutils literal notranslate"><span class="pre">g1</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#kidsproc.kidsmodel.KidsSweepGainWithGeometry.param_names" title="kidsproc.kidsmodel.KidsSweepGainWithGeometry.param_names"><code class="xref py py-obj docutils literal notranslate"><span class="pre">param_names</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#kidsproc.kidsmodel.KidsSweepGainWithGeometry.phi_c" title="kidsproc.kidsmodel.KidsSweepGainWithGeometry.phi_c"><code class="xref py py-obj docutils literal notranslate"><span class="pre">phi_c</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#kidsproc.kidsmodel.KidsSweepGainWithGeometry.phi_g" title="kidsproc.kidsmodel.KidsSweepGainWithGeometry.phi_g"><code class="xref py py-obj docutils literal notranslate"><span class="pre">phi_g</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#kidsproc.kidsmodel.KidsSweepGainWithGeometry.tau" title="kidsproc.kidsmodel.KidsSweepGainWithGeometry.tau"><code class="xref py py-obj docutils literal notranslate"><span class="pre">tau</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Methods Summary</p>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#kidsproc.kidsmodel.KidsSweepGainWithGeometry.evaluate" title="kidsproc.kidsmodel.KidsSweepGainWithGeometry.evaluate"><code class="xref py py-obj docutils literal notranslate"><span class="pre">evaluate</span></code></a>(f, fr, Qr, g0, g1, g, phi_g, tau, …)</p></td>
+<td><p>Evaluate the model on some input variables.</p></td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Attributes Documentation</p>
+<dl class="attribute">
+<dt id="kidsproc.kidsmodel.KidsSweepGainWithGeometry.Qc">
+<code class="sig-name descname">Qc</code><em class="property"> = Parameter('Qc', value=40000.0)</em><a class="headerlink" href="#kidsproc.kidsmodel.KidsSweepGainWithGeometry.Qc" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="kidsproc.kidsmodel.KidsSweepGainWithGeometry.Qi">
+<code class="sig-name descname">Qi</code><em class="property"> = Parameter('Qi', value=nan, tied=&lt;function _tied_Qi&gt;)</em><a class="headerlink" href="#kidsproc.kidsmodel.KidsSweepGainWithGeometry.Qi" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="kidsproc.kidsmodel.KidsSweepGainWithGeometry.Qr">
+<code class="sig-name descname">Qr</code><em class="property"> = Parameter('Qr', value=20000.0)</em><a class="headerlink" href="#kidsproc.kidsmodel.KidsSweepGainWithGeometry.Qr" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="kidsproc.kidsmodel.KidsSweepGainWithGeometry.fr">
+<code class="sig-name descname">fr</code><em class="property"> = Parameter('fr', value=1000000000.0, unit=Hz, bounds=(0.0, None))</em><a class="headerlink" href="#kidsproc.kidsmodel.KidsSweepGainWithGeometry.fr" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="kidsproc.kidsmodel.KidsSweepGainWithGeometry.g">
+<code class="sig-name descname">g</code><em class="property"> = Parameter('g', value=nan, tied=&lt;function _tied_g_amp&gt;)</em><a class="headerlink" href="#kidsproc.kidsmodel.KidsSweepGainWithGeometry.g" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="kidsproc.kidsmodel.KidsSweepGainWithGeometry.g0">
+<code class="sig-name descname">g0</code><em class="property"> = Parameter('g0', value=1.0)</em><a class="headerlink" href="#kidsproc.kidsmodel.KidsSweepGainWithGeometry.g0" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="kidsproc.kidsmodel.KidsSweepGainWithGeometry.g1">
+<code class="sig-name descname">g1</code><em class="property"> = Parameter('g1', value=0.0)</em><a class="headerlink" href="#kidsproc.kidsmodel.KidsSweepGainWithGeometry.g1" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="kidsproc.kidsmodel.KidsSweepGainWithGeometry.param_names">
+<code class="sig-name descname">param_names</code><em class="property"> = ('fr', 'Qr', 'g0', 'g1', 'g', 'phi_g', 'tau', 'Qc', 'Qi', 'phi_c')</em><a class="headerlink" href="#kidsproc.kidsmodel.KidsSweepGainWithGeometry.param_names" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="kidsproc.kidsmodel.KidsSweepGainWithGeometry.phi_c">
+<code class="sig-name descname">phi_c</code><em class="property"> = Parameter('phi_c', value=0.0)</em><a class="headerlink" href="#kidsproc.kidsmodel.KidsSweepGainWithGeometry.phi_c" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="kidsproc.kidsmodel.KidsSweepGainWithGeometry.phi_g">
+<code class="sig-name descname">phi_g</code><em class="property"> = Parameter('phi_g', value=nan, tied=&lt;function _tied_g_phase&gt;)</em><a class="headerlink" href="#kidsproc.kidsmodel.KidsSweepGainWithGeometry.phi_g" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="kidsproc.kidsmodel.KidsSweepGainWithGeometry.tau">
+<code class="sig-name descname">tau</code><em class="property"> = Parameter('tau', value=0.0, unit=s)</em><a class="headerlink" href="#kidsproc.kidsmodel.KidsSweepGainWithGeometry.tau" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<p class="rubric">Methods Documentation</p>
+<dl class="method">
+<dt id="kidsproc.kidsmodel.KidsSweepGainWithGeometry.evaluate">
+<em class="property">static </em><code class="sig-name descname">evaluate</code><span class="sig-paren">(</span><em class="sig-param">f</em>, <em class="sig-param">fr</em>, <em class="sig-param">Qr</em>, <em class="sig-param">g0</em>, <em class="sig-param">g1</em>, <em class="sig-param">g</em>, <em class="sig-param">phi_g</em>, <em class="sig-param">tau</em>, <em class="sig-param">Qc</em>, <em class="sig-param">Qi</em>, <em class="sig-param">phi_c</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kidsproc/kidsmodel.html#KidsSweepGainWithGeometry.evaluate"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kidsproc.kidsmodel.KidsSweepGainWithGeometry.evaluate" title="Permalink to this definition">¶</a></dt>
+<dd><p>Evaluate the model on some input variables.</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper"><h3>Page Contents</h3>
+<ul>
+<li><a class="reference internal" href="#">KidsSweepGainWithGeometry</a></li>
+</ul>
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+<footer class="footer">
+  <p class="pull-right">
+    <a href="../_sources/api/kidsproc.kidsmodel.KidsSweepGainWithGeometry.rst.txt"
+       rel="nofollow">Page Source</a> &nbsp;
+    <a href="#">Back to Top</a></p>
+  <p>
+    &copy; Copyright 2020, Zhiyuan Ma.<br/>
+    Created using <a href="http://www.sphinx-doc.org/en/stable/">Sphinx</a> 2.4.3. &nbsp;
+    Last built 02 Mar 2020. <br/>
+  </p>
+</footer>
+  </body>
+</html>

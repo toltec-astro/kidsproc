@@ -1,0 +1,313 @@
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="utf-8" />
+    <title>kidsproc Documentation &#8212; kidsproc v0.1.dev4+g201ce84.d20200302</title>
+    <link rel="stylesheet" href="../_static/bootstrap-astropy.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/graphviz.css" />
+    
+    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/language_data.js"></script>
+    <script type="text/javascript" src="../_static/sidebar.js"></script>
+    <script type="text/javascript" src="../_static/copybutton.js"></script>
+    <link rel="shortcut icon" href="../_static/astropy_logo.ico"/>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="RawTimeStream" href="../api/kidsproc.kidsdata.RawTimeStream.html" />
+    <link rel="prev" title="Documentation" href="../index.html" />
+    <link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro:200,600' rel='stylesheet' type='text/css'/>
+
+  </head><body>
+<div class="topbar">
+  <a class="brand" title="Documentation Home" href="../index.html"><span id="logotext1">kidsproc</span><span id="logotext2"></span><span id="logotext3">:docs</span></a>
+  <ul>
+    
+    <li><a class="homelink" title="Astropy Homepage" href="http://www.astropy.org"></a></li>
+    <li><a title="General Index" href="../genindex.html">Index</a></li>
+    <li><a title="Module Index" href="../py-modindex.html">Modules</a></li>
+    <li>
+      
+      
+<form action="../search.html" method="get">
+  <input type="text" name="q" placeholder="Search" />
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+      
+    </li>
+  </ul>
+</div>
+
+<div class="related">
+    <h3>Navigation</h3>
+    <ul>
+      <li class="right">
+	<a href="../api/kidsproc.kidsdata.RawTimeStream.html" title="RawTimeStream">
+	  next &raquo;
+	</a>
+      </li>
+      <li class="right">
+	<a href="../index.html" title="Documentation">
+	  &laquo; previous
+	</a>
+	 |
+      </li>
+      <li>
+	<a href="../index.html">kidsproc v0.1.dev4+g201ce84.d20200302</a>
+	 &#187;
+      </li>
+      
+      <li>kidsproc Documentation</li> 
+    </ul>
+</div>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="kidsproc-documentation">
+<h1>kidsproc Documentation<a class="headerlink" href="#kidsproc-documentation" title="Permalink to this headline">¶</a></h1>
+<p>This is the documentation for kidsproc.</p>
+<div class="section" id="reference-api">
+<h2>Reference/API<a class="headerlink" href="#reference-api" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="module-kidsproc">
+<span id="kidsproc-package"></span><h3>kidsproc Package<a class="headerlink" href="#module-kidsproc" title="Permalink to this headline">¶</a></h3>
+</div>
+<div class="section" id="module-kidsproc.kidsdata">
+<span id="kidsproc-kidsdata-package"></span><h3>kidsproc.kidsdata Package<a class="headerlink" href="#module-kidsproc.kidsdata" title="Permalink to this headline">¶</a></h3>
+<p>This module implements the container classes for KIDs data.</p>
+<div class="section" id="classes">
+<h4>Classes<a class="headerlink" href="#classes" title="Permalink to this headline">¶</a></h4>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">NDDataRef</span></code>(data[, uncertainty, mask, wcs, …])</p></td>
+<td><p>Implements <code class="xref py py-obj docutils literal notranslate"><span class="pre">NDData</span></code> with all Mixins.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="../api/kidsproc.kidsdata.RawTimeStream.html#kidsproc.kidsdata.RawTimeStream" title="kidsproc.kidsdata.RawTimeStream"><code class="xref py py-obj docutils literal notranslate"><span class="pre">RawTimeStream</span></code></a>(data[, uncertainty, mask, …])</p></td>
+<td><p>Container for the raw in-phase (i) and quadrature (q) data.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="../api/kidsproc.kidsdata.SolvedTimeStream.html#kidsproc.kidsdata.SolvedTimeStream" title="kidsproc.kidsdata.SolvedTimeStream"><code class="xref py py-obj docutils literal notranslate"><span class="pre">SolvedTimeStream</span></code></a>(data[, uncertainty, mask, …])</p></td>
+<td><p>Container for the solved detuning (x) and loss (r) data.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="../api/kidsproc.kidsdata.Sweep.html#kidsproc.kidsdata.Sweep" title="kidsproc.kidsdata.Sweep"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Sweep</span></code></a>(data[, uncertainty, mask, wcs, meta, …])</p></td>
+<td><p>Container for frequency sweep data.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="../api/kidsproc.kidsdata.SweepMixin.html#kidsproc.kidsdata.SweepMixin" title="kidsproc.kidsdata.SweepMixin"><code class="xref py py-obj docutils literal notranslate"><span class="pre">SweepMixin</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="../api/kidsproc.kidsdata.TargetSweep.html#kidsproc.kidsdata.TargetSweep" title="kidsproc.kidsdata.TargetSweep"><code class="xref py py-obj docutils literal notranslate"><span class="pre">TargetSweep</span></code></a>(data[, uncertainty, mask, wcs, …])</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="../api/kidsproc.kidsdata.TimeStream.html#kidsproc.kidsdata.TimeStream" title="kidsproc.kidsdata.TimeStream"><code class="xref py py-obj docutils literal notranslate"><span class="pre">TimeStream</span></code></a>(data[, uncertainty, mask, wcs, …])</p></td>
+<td><p>Container for time stream data.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="../api/kidsproc.kidsdata.TimeStreamMixin.html#kidsproc.kidsdata.TimeStreamMixin" title="kidsproc.kidsdata.TimeStreamMixin"><code class="xref py py-obj docutils literal notranslate"><span class="pre">TimeStreamMixin</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="../api/kidsproc.kidsdata.VnaSweep.html#kidsproc.kidsdata.VnaSweep" title="kidsproc.kidsdata.VnaSweep"><code class="xref py py-obj docutils literal notranslate"><span class="pre">VnaSweep</span></code></a>(data[, uncertainty, mask, wcs, …])</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">cached_property</span></code>(func)</p></td>
+<td><p>A property that is only computed once per instance and then replaces itself with an ordinary attribute.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="class-inheritance-diagram">
+<h4>Class Inheritance Diagram<a class="headerlink" href="#class-inheritance-diagram" title="Permalink to this headline">¶</a></h4>
+<div class="graphviz"><object data="../_images/inheritance-3fb2dd6f63c98b571840166a2e01d189dc18f11b.svg" type="image/svg+xml" class="inheritance graphviz">
+<p class="warning">Inheritance diagram of kidsproc.kidsdata.RawTimeStream, kidsproc.kidsdata.SolvedTimeStream, kidsproc.kidsdata.Sweep, kidsproc.kidsdata.sweep_mixin.SweepMixin, kidsproc.kidsdata.TargetSweep, kidsproc.kidsdata.TimeStream, kidsproc.kidsdata.timestream_mixin.TimeStreamMixin, kidsproc.kidsdata.VnaSweep</p></object></div>
+</div>
+</div>
+<div class="section" id="module-kidsproc.kidsmodel">
+<span id="kidsproc-kidsmodel-package"></span><h3>kidsproc.kidsmodel Package<a class="headerlink" href="#module-kidsproc.kidsmodel" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id1">
+<h4>Classes<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h4>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="../api/kidsproc.kidsmodel.InstrumentalDetune.html#kidsproc.kidsmodel.InstrumentalDetune" title="kidsproc.kidsmodel.InstrumentalDetune"><code class="xref py py-obj docutils literal notranslate"><span class="pre">InstrumentalDetune</span></code></a>(*args, **kwargs)</p></td>
+<td><p>Model that describes the detuning in terms of the probe tone and detector intrinsics.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="../api/kidsproc.kidsmodel.KidsProbeGainWithGeometry.html#kidsproc.kidsmodel.KidsProbeGainWithGeometry" title="kidsproc.kidsmodel.KidsProbeGainWithGeometry"><code class="xref py py-obj docutils literal notranslate"><span class="pre">KidsProbeGainWithGeometry</span></code></a>(fp, g0, g1, g, …)</p></td>
+<td><p>Model that describes the S21 probed at fixed frequencies with the geometry parameters.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="../api/kidsproc.kidsmodel.KidsProbeGainWithLinTrend.html#kidsproc.kidsmodel.KidsProbeGainWithLinTrend" title="kidsproc.kidsmodel.KidsProbeGainWithLinTrend"><code class="xref py py-obj docutils literal notranslate"><span class="pre">KidsProbeGainWithLinTrend</span></code></a>(fp, g0, g1, g, …)</p></td>
+<td><p>Model that describes the S21 probed at fixed frequencies with an effective gain and a linear baseline trend.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="../api/kidsproc.kidsmodel.KidsSweepGainWithGeometry.html#kidsproc.kidsmodel.KidsSweepGainWithGeometry" title="kidsproc.kidsmodel.KidsSweepGainWithGeometry"><code class="xref py py-obj docutils literal notranslate"><span class="pre">KidsSweepGainWithGeometry</span></code></a>(fr, Qr, g0, g1, g, …)</p></td>
+<td><p>Model that describes the S21 for frequency sweep with the geometry parameters.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="../api/kidsproc.kidsmodel.KidsSweepGainWithLinTrend.html#kidsproc.kidsmodel.KidsSweepGainWithLinTrend" title="kidsproc.kidsmodel.KidsSweepGainWithLinTrend"><code class="xref py py-obj docutils literal notranslate"><span class="pre">KidsSweepGainWithLinTrend</span></code></a>(fr, Qr, g0, g1, g, …)</p></td>
+<td><p>Model that describes the S21 for frequency sweep with an effective gain and a linear baseline trend.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">Model</span></code>(*args[, meta, name])</p></td>
+<td><p>Base class for all models.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="../api/kidsproc.kidsmodel.OpticalDetune.html#kidsproc.kidsmodel.OpticalDetune" title="kidsproc.kidsmodel.OpticalDetune"><code class="xref py py-obj docutils literal notranslate"><span class="pre">OpticalDetune</span></code></a>(*args, **kwargs)</p></td>
+<td><p>Model that describes detuning of KIDs in response to incident optical power.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">Parameter</span></code>([name, description, default, …])</p></td>
+<td><p>Wraps individual parameters.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="../api/kidsproc.kidsmodel.ReadoutComplexToIQ.html#kidsproc.kidsmodel.ReadoutComplexToIQ" title="kidsproc.kidsmodel.ReadoutComplexToIQ"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ReadoutComplexToIQ</span></code></a>(*args, **kwargs)</p></td>
+<td><p>Utility model to convert from complex S21 to (I, Q).</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="../api/kidsproc.kidsmodel.ReadoutIQToComplex.html#kidsproc.kidsmodel.ReadoutIQToComplex" title="kidsproc.kidsmodel.ReadoutIQToComplex"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ReadoutIQToComplex</span></code></a>(*args, **kwargs)</p></td>
+<td><p>Utility model to convert from (I, Q) to complex S21.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="../api/kidsproc.kidsmodel.ResonanceCircle.html#kidsproc.kidsmodel.ResonanceCircle" title="kidsproc.kidsmodel.ResonanceCircle"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ResonanceCircle</span></code></a>(*args, **kwargs)</p></td>
+<td><p>Same as <a class="reference internal" href="../api/kidsproc.kidsmodel.ResonanceCircleComplex.html#kidsproc.kidsmodel.ResonanceCircleComplex" title="kidsproc.kidsmodel.ResonanceCircleComplex"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ResonanceCircleComplex</span></code></a>, but with separate real and imaginary parts as inputs and outputs.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="../api/kidsproc.kidsmodel.ResonanceCircleComplex.html#kidsproc.kidsmodel.ResonanceCircleComplex" title="kidsproc.kidsmodel.ResonanceCircleComplex"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ResonanceCircleComplex</span></code></a>(*args, **kwargs)</p></td>
+<td><p>Model that describes the resonance circle of KIDs in complex plane.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="../api/kidsproc.kidsmodel.ResonanceCircleComplexInv.html#kidsproc.kidsmodel.ResonanceCircleComplexInv" title="kidsproc.kidsmodel.ResonanceCircleComplexInv"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ResonanceCircleComplexInv</span></code></a>(*args, **kwargs)</p></td>
+<td><p>Inversion of <a class="reference internal" href="../api/kidsproc.kidsmodel.ResonanceCircleComplex.html#kidsproc.kidsmodel.ResonanceCircleComplex" title="kidsproc.kidsmodel.ResonanceCircleComplex"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ResonanceCircleComplex</span></code></a>.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="../api/kidsproc.kidsmodel.ResonanceCircleInv.html#kidsproc.kidsmodel.ResonanceCircleInv" title="kidsproc.kidsmodel.ResonanceCircleInv"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ResonanceCircleInv</span></code></a>(*args, **kwargs)</p></td>
+<td><p>Inversion of <a class="reference internal" href="../api/kidsproc.kidsmodel.ResonanceCircle.html#kidsproc.kidsmodel.ResonanceCircle" title="kidsproc.kidsmodel.ResonanceCircle"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ResonanceCircle</span></code></a>.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="../api/kidsproc.kidsmodel.ResonanceCircleProbe.html#kidsproc.kidsmodel.ResonanceCircleProbe" title="kidsproc.kidsmodel.ResonanceCircleProbe"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ResonanceCircleProbe</span></code></a>([fp])</p></td>
+<td><p>Model that describes the probing of The resonance circle.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="../api/kidsproc.kidsmodel.ResonanceCircleProbeComplex.html#kidsproc.kidsmodel.ResonanceCircleProbeComplex" title="kidsproc.kidsmodel.ResonanceCircleProbeComplex"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ResonanceCircleProbeComplex</span></code></a>([fp])</p></td>
+<td><p>The same as <a class="reference internal" href="../api/kidsproc.kidsmodel.ResonanceCircleProbe.html#kidsproc.kidsmodel.ResonanceCircleProbe" title="kidsproc.kidsmodel.ResonanceCircleProbe"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ResonanceCircleProbe</span></code></a>, but the result is the complex S21.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="../api/kidsproc.kidsmodel.ResonanceCircleQr.html#kidsproc.kidsmodel.ResonanceCircleQr" title="kidsproc.kidsmodel.ResonanceCircleQr"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ResonanceCircleQr</span></code></a>(*args, **kwargs)</p></td>
+<td><p>Model that describes the relation of <code class="xref py py-obj docutils literal notranslate"><span class="pre">r</span></code> and <code class="xref py py-obj docutils literal notranslate"><span class="pre">Qr</span></code>.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="../api/kidsproc.kidsmodel.ResonanceCircleQrInv.html#kidsproc.kidsmodel.ResonanceCircleQrInv" title="kidsproc.kidsmodel.ResonanceCircleQrInv"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ResonanceCircleQrInv</span></code></a>(*args, **kwargs)</p></td>
+<td><p>Inversion of <a class="reference internal" href="../api/kidsproc.kidsmodel.ResonanceCircleQr.html#kidsproc.kidsmodel.ResonanceCircleQr" title="kidsproc.kidsmodel.ResonanceCircleQr"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ResonanceCircleQr</span></code></a></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="../api/kidsproc.kidsmodel.ResonanceCircleSweep.html#kidsproc.kidsmodel.ResonanceCircleSweep" title="kidsproc.kidsmodel.ResonanceCircleSweep"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ResonanceCircleSweep</span></code></a>([fr, Qr])</p></td>
+<td><p>Model that describes the frequency sweep of The resonance circle.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="../api/kidsproc.kidsmodel.ResonanceCircleSweepComplex.html#kidsproc.kidsmodel.ResonanceCircleSweepComplex" title="kidsproc.kidsmodel.ResonanceCircleSweepComplex"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ResonanceCircleSweepComplex</span></code></a>([fr, Qr])</p></td>
+<td><p>The same as <a class="reference internal" href="../api/kidsproc.kidsmodel.ResonanceCircleSweep.html#kidsproc.kidsmodel.ResonanceCircleSweep" title="kidsproc.kidsmodel.ResonanceCircleSweep"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ResonanceCircleSweep</span></code></a>, but the result is the complex S21.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="id2">
+<h4>Class Inheritance Diagram<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h4>
+<div class="graphviz"><object data="../_images/inheritance-5e0d744de29d1cc107521c8fcd0ea009415900d8.svg" type="image/svg+xml" class="inheritance graphviz">
+<p class="warning">Inheritance diagram of kidsproc.kidsmodel.InstrumentalDetune, kidsproc.kidsmodel.KidsProbeGainWithGeometry, kidsproc.kidsmodel.KidsProbeGainWithLinTrend, kidsproc.kidsmodel.KidsSweepGainWithGeometry, kidsproc.kidsmodel.KidsSweepGainWithLinTrend, kidsproc.kidsmodel.OpticalDetune, kidsproc.kidsmodel.ReadoutComplexToIQ, kidsproc.kidsmodel.ReadoutIQToComplex, kidsproc.kidsmodel.ResonanceCircle, kidsproc.kidsmodel.ResonanceCircleComplex, kidsproc.kidsmodel.ResonanceCircleComplexInv, kidsproc.kidsmodel.ResonanceCircleInv, kidsproc.kidsmodel.ResonanceCircleProbe, kidsproc.kidsmodel.ResonanceCircleProbeComplex, kidsproc.kidsmodel.ResonanceCircleQr, kidsproc.kidsmodel.ResonanceCircleQrInv, kidsproc.kidsmodel.ResonanceCircleSweep, kidsproc.kidsmodel.ResonanceCircleSweepComplex</p></object></div>
+</div>
+</div>
+<div class="section" id="module-kidsproc.kidsmodel.simulator">
+<span id="kidsproc-kidsmodel-simulator-module"></span><h3>kidsproc.kidsmodel.simulator Module<a class="headerlink" href="#module-kidsproc.kidsmodel.simulator" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id3">
+<h4>Classes<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h4>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">Identity</span></code>(n_inputs[, name, meta])</p></td>
+<td><p>Returns inputs unchanged.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="../api/kidsproc.kidsmodel.simulator.KidsSimulator.html#kidsproc.kidsmodel.simulator.KidsSimulator" title="kidsproc.kidsmodel.simulator.KidsSimulator"><code class="xref py py-obj docutils literal notranslate"><span class="pre">KidsSimulator</span></code></a>([fr, Qr, background, responsivity])</p></td>
+<td><p>Class that make simulated kids data.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">OpticalDetune</span></code>(*args, **kwargs)</p></td>
+<td><p>Model that describes detuning of KIDs in response to incident optical power.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">ReadoutIQToComplex</span></code>(*args, **kwargs)</p></td>
+<td><p>Utility model to convert from (I, Q) to complex S21.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">ResonanceCircleComplex</span></code>(*args, **kwargs)</p></td>
+<td><p>Model that describes the resonance circle of KIDs in complex plane.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">ResonanceCircleComplexInv</span></code>(*args, **kwargs)</p></td>
+<td><p>Inversion of <code class="xref py py-obj docutils literal notranslate"><span class="pre">ResonanceCircleComplex</span></code>.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">ResonanceCircleInv</span></code>(*args, **kwargs)</p></td>
+<td><p>Inversion of <code class="xref py py-obj docutils literal notranslate"><span class="pre">ResonanceCircle</span></code>.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">ResonanceCircleProbeComplex</span></code>([fp])</p></td>
+<td><p>The same as <code class="xref py py-obj docutils literal notranslate"><span class="pre">ResonanceCircleProbe</span></code>, but the result is the complex S21.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">ResonanceCircleQrInv</span></code>(*args, **kwargs)</p></td>
+<td><p>Inversion of <code class="xref py py-obj docutils literal notranslate"><span class="pre">ResonanceCircleQr</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">ResonanceCircleSweepComplex</span></code>([fr, Qr])</p></td>
+<td><p>The same as <code class="xref py py-obj docutils literal notranslate"><span class="pre">ResonanceCircleSweep</span></code>, but the result is the complex S21.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="id4">
+<h4>Class Inheritance Diagram<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h4>
+<div class="graphviz"><object data="../_images/inheritance-e07a221511b01b258501a0c9e12a38d8acf7f498.svg" type="image/svg+xml" class="inheritance graphviz">
+<p class="warning">Inheritance diagram of kidsproc.kidsmodel.simulator.KidsSimulator</p></object></div>
+</div>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper"><h3>Page Contents</h3>
+<ul>
+<li><a class="reference internal" href="#">kidsproc Documentation</a><ul>
+<li><a class="reference internal" href="#reference-api">Reference/API</a><ul>
+<li><a class="reference internal" href="#module-kidsproc">kidsproc Package</a></li>
+<li><a class="reference internal" href="#module-kidsproc.kidsdata">kidsproc.kidsdata Package</a><ul>
+<li><a class="reference internal" href="#classes">Classes</a></li>
+<li><a class="reference internal" href="#class-inheritance-diagram">Class Inheritance Diagram</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-kidsproc.kidsmodel">kidsproc.kidsmodel Package</a><ul>
+<li><a class="reference internal" href="#id1">Classes</a></li>
+<li><a class="reference internal" href="#id2">Class Inheritance Diagram</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-kidsproc.kidsmodel.simulator">kidsproc.kidsmodel.simulator Module</a><ul>
+<li><a class="reference internal" href="#id3">Classes</a></li>
+<li><a class="reference internal" href="#id4">Class Inheritance Diagram</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+<footer class="footer">
+  <p class="pull-right">
+    <a href="../_sources/kidsproc/index.rst.txt"
+       rel="nofollow">Page Source</a> &nbsp;
+    <a href="#">Back to Top</a></p>
+  <p>
+    &copy; Copyright 2020, Zhiyuan Ma.<br/>
+    Created using <a href="http://www.sphinx-doc.org/en/stable/">Sphinx</a> 2.4.3. &nbsp;
+    Last built 02 Mar 2020. <br/>
+  </p>
+</footer>
+  </body>
+</html>

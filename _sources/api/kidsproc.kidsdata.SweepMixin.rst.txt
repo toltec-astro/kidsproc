@@ -1,0 +1,7 @@
+SweepMixin
+==========
+
+.. currentmodule:: kidsproc.kidsdata
+
+.. autoclass:: SweepMixin
+   :show-inheritance:

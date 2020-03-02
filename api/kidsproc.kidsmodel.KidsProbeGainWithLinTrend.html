@@ -1,0 +1,233 @@
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="utf-8" />
+    <title>KidsProbeGainWithLinTrend &#8212; kidsproc v0.1.dev4+g201ce84.d20200302</title>
+    <link rel="stylesheet" href="../_static/bootstrap-astropy.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/graphviz.css" />
+    
+    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/language_data.js"></script>
+    <script type="text/javascript" src="../_static/sidebar.js"></script>
+    <script type="text/javascript" src="../_static/copybutton.js"></script>
+    <link rel="shortcut icon" href="../_static/astropy_logo.ico"/>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="KidsSweepGainWithGeometry" href="kidsproc.kidsmodel.KidsSweepGainWithGeometry.html" />
+    <link rel="prev" title="KidsProbeGainWithGeometry" href="kidsproc.kidsmodel.KidsProbeGainWithGeometry.html" />
+    <link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro:200,600' rel='stylesheet' type='text/css'/>
+
+  </head><body>
+<div class="topbar">
+  <a class="brand" title="Documentation Home" href="../index.html"><span id="logotext1">kidsproc</span><span id="logotext2"></span><span id="logotext3">:docs</span></a>
+  <ul>
+    
+    <li><a class="homelink" title="Astropy Homepage" href="http://www.astropy.org"></a></li>
+    <li><a title="General Index" href="../genindex.html">Index</a></li>
+    <li><a title="Module Index" href="../py-modindex.html">Modules</a></li>
+    <li>
+      
+      
+<form action="../search.html" method="get">
+  <input type="text" name="q" placeholder="Search" />
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+      
+    </li>
+  </ul>
+</div>
+
+<div class="related">
+    <h3>Navigation</h3>
+    <ul>
+      <li class="right">
+	<a href="kidsproc.kidsmodel.KidsSweepGainWithGeometry.html" title="KidsSweepGainWithGeometry">
+	  next &raquo;
+	</a>
+      </li>
+      <li class="right">
+	<a href="kidsproc.kidsmodel.KidsProbeGainWithGeometry.html" title="KidsProbeGainWithGeometry">
+	  &laquo; previous
+	</a>
+	 |
+      </li>
+      <li>
+	<a href="../index.html">kidsproc v0.1.dev4+g201ce84.d20200302</a>
+	 &#187;
+      </li>
+      <li><a href="../kidsproc/index.html" accesskey="U">kidsproc Documentation</a> &#187;</li>
+      
+      <li>KidsProbeGainWithLinTrend</li> 
+    </ul>
+</div>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="kidsprobegainwithlintrend">
+<h1>KidsProbeGainWithLinTrend<a class="headerlink" href="#kidsprobegainwithlintrend" title="Permalink to this headline">¶</a></h1>
+<dl class="class">
+<dt id="kidsproc.kidsmodel.KidsProbeGainWithLinTrend">
+<em class="property">class </em><code class="sig-prename descclassname">kidsproc.kidsmodel.</code><code class="sig-name descname">KidsProbeGainWithLinTrend</code><span class="sig-paren">(</span><em class="sig-param">fp</em>, <em class="sig-param">g0</em>, <em class="sig-param">g1</em>, <em class="sig-param">g</em>, <em class="sig-param">phi_g</em>, <em class="sig-param">f0</em>, <em class="sig-param">k0</em>, <em class="sig-param">k1</em>, <em class="sig-param">m0</em>, <em class="sig-param">m1</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kidsproc/kidsmodel.html#KidsProbeGainWithLinTrend"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kidsproc.kidsmodel.KidsProbeGainWithLinTrend" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">kidsproc.kidsmodel._ResonanceCircleProbeMixin</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">kidsproc.kidsmodel._ReadoutReprComplexMixin</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">kidsproc.kidsmodel._KidsReadoutMixin</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">kidsproc.kidsmodel._ReadoutGainWithLinTrendMixin</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">kidsproc.kidsmodel._ComposableModelBase</span></code></p>
+<p>Model that describes the S21 probed at fixed frequencies with
+an effective gain and a linear baseline trend.</p>
+<p class="rubric">Attributes Summary</p>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#kidsproc.kidsmodel.KidsProbeGainWithLinTrend.f0" title="kidsproc.kidsmodel.KidsProbeGainWithLinTrend.f0"><code class="xref py py-obj docutils literal notranslate"><span class="pre">f0</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#kidsproc.kidsmodel.KidsProbeGainWithLinTrend.fp" title="kidsproc.kidsmodel.KidsProbeGainWithLinTrend.fp"><code class="xref py py-obj docutils literal notranslate"><span class="pre">fp</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#kidsproc.kidsmodel.KidsProbeGainWithLinTrend.g" title="kidsproc.kidsmodel.KidsProbeGainWithLinTrend.g"><code class="xref py py-obj docutils literal notranslate"><span class="pre">g</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#kidsproc.kidsmodel.KidsProbeGainWithLinTrend.g0" title="kidsproc.kidsmodel.KidsProbeGainWithLinTrend.g0"><code class="xref py py-obj docutils literal notranslate"><span class="pre">g0</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#kidsproc.kidsmodel.KidsProbeGainWithLinTrend.g1" title="kidsproc.kidsmodel.KidsProbeGainWithLinTrend.g1"><code class="xref py py-obj docutils literal notranslate"><span class="pre">g1</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#kidsproc.kidsmodel.KidsProbeGainWithLinTrend.k0" title="kidsproc.kidsmodel.KidsProbeGainWithLinTrend.k0"><code class="xref py py-obj docutils literal notranslate"><span class="pre">k0</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#kidsproc.kidsmodel.KidsProbeGainWithLinTrend.k1" title="kidsproc.kidsmodel.KidsProbeGainWithLinTrend.k1"><code class="xref py py-obj docutils literal notranslate"><span class="pre">k1</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#kidsproc.kidsmodel.KidsProbeGainWithLinTrend.m0" title="kidsproc.kidsmodel.KidsProbeGainWithLinTrend.m0"><code class="xref py py-obj docutils literal notranslate"><span class="pre">m0</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#kidsproc.kidsmodel.KidsProbeGainWithLinTrend.m1" title="kidsproc.kidsmodel.KidsProbeGainWithLinTrend.m1"><code class="xref py py-obj docutils literal notranslate"><span class="pre">m1</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#kidsproc.kidsmodel.KidsProbeGainWithLinTrend.param_names" title="kidsproc.kidsmodel.KidsProbeGainWithLinTrend.param_names"><code class="xref py py-obj docutils literal notranslate"><span class="pre">param_names</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#kidsproc.kidsmodel.KidsProbeGainWithLinTrend.phi_g" title="kidsproc.kidsmodel.KidsProbeGainWithLinTrend.phi_g"><code class="xref py py-obj docutils literal notranslate"><span class="pre">phi_g</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Methods Summary</p>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#kidsproc.kidsmodel.KidsProbeGainWithLinTrend.evaluate" title="kidsproc.kidsmodel.KidsProbeGainWithLinTrend.evaluate"><code class="xref py py-obj docutils literal notranslate"><span class="pre">evaluate</span></code></a>(fr, Qr, fp, g0, g1, g, phi_g, f0, …)</p></td>
+<td><p>Evaluate the model on some input variables.</p></td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Attributes Documentation</p>
+<dl class="attribute">
+<dt id="kidsproc.kidsmodel.KidsProbeGainWithLinTrend.f0">
+<code class="sig-name descname">f0</code><em class="property"> = Parameter('f0', value=1000000000.0, unit=Hz, bounds=(0.0, None))</em><a class="headerlink" href="#kidsproc.kidsmodel.KidsProbeGainWithLinTrend.f0" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="kidsproc.kidsmodel.KidsProbeGainWithLinTrend.fp">
+<code class="sig-name descname">fp</code><em class="property"> = Parameter('fp', value=1000000000.0, unit=Hz, bounds=(0.0, None))</em><a class="headerlink" href="#kidsproc.kidsmodel.KidsProbeGainWithLinTrend.fp" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="kidsproc.kidsmodel.KidsProbeGainWithLinTrend.g">
+<code class="sig-name descname">g</code><em class="property"> = Parameter('g', value=nan, tied=&lt;function _tied_g_amp&gt;)</em><a class="headerlink" href="#kidsproc.kidsmodel.KidsProbeGainWithLinTrend.g" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="kidsproc.kidsmodel.KidsProbeGainWithLinTrend.g0">
+<code class="sig-name descname">g0</code><em class="property"> = Parameter('g0', value=1.0)</em><a class="headerlink" href="#kidsproc.kidsmodel.KidsProbeGainWithLinTrend.g0" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="kidsproc.kidsmodel.KidsProbeGainWithLinTrend.g1">
+<code class="sig-name descname">g1</code><em class="property"> = Parameter('g1', value=0.0)</em><a class="headerlink" href="#kidsproc.kidsmodel.KidsProbeGainWithLinTrend.g1" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="kidsproc.kidsmodel.KidsProbeGainWithLinTrend.k0">
+<code class="sig-name descname">k0</code><em class="property"> = Parameter('k0', value=0.0)</em><a class="headerlink" href="#kidsproc.kidsmodel.KidsProbeGainWithLinTrend.k0" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="kidsproc.kidsmodel.KidsProbeGainWithLinTrend.k1">
+<code class="sig-name descname">k1</code><em class="property"> = Parameter('k1', value=0.0)</em><a class="headerlink" href="#kidsproc.kidsmodel.KidsProbeGainWithLinTrend.k1" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="kidsproc.kidsmodel.KidsProbeGainWithLinTrend.m0">
+<code class="sig-name descname">m0</code><em class="property"> = Parameter('m0', value=0.0)</em><a class="headerlink" href="#kidsproc.kidsmodel.KidsProbeGainWithLinTrend.m0" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="kidsproc.kidsmodel.KidsProbeGainWithLinTrend.m1">
+<code class="sig-name descname">m1</code><em class="property"> = Parameter('m1', value=0.0)</em><a class="headerlink" href="#kidsproc.kidsmodel.KidsProbeGainWithLinTrend.m1" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="kidsproc.kidsmodel.KidsProbeGainWithLinTrend.param_names">
+<code class="sig-name descname">param_names</code><em class="property"> = ('fp', 'g0', 'g1', 'g', 'phi_g', 'f0', 'k0', 'k1', 'm0', 'm1')</em><a class="headerlink" href="#kidsproc.kidsmodel.KidsProbeGainWithLinTrend.param_names" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="kidsproc.kidsmodel.KidsProbeGainWithLinTrend.phi_g">
+<code class="sig-name descname">phi_g</code><em class="property"> = Parameter('phi_g', value=nan, tied=&lt;function _tied_g_phase&gt;)</em><a class="headerlink" href="#kidsproc.kidsmodel.KidsProbeGainWithLinTrend.phi_g" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<p class="rubric">Methods Documentation</p>
+<dl class="method">
+<dt id="kidsproc.kidsmodel.KidsProbeGainWithLinTrend.evaluate">
+<em class="property">static </em><code class="sig-name descname">evaluate</code><span class="sig-paren">(</span><em class="sig-param">fr</em>, <em class="sig-param">Qr</em>, <em class="sig-param">fp</em>, <em class="sig-param">g0</em>, <em class="sig-param">g1</em>, <em class="sig-param">g</em>, <em class="sig-param">phi_g</em>, <em class="sig-param">f0</em>, <em class="sig-param">k0</em>, <em class="sig-param">k1</em>, <em class="sig-param">m0</em>, <em class="sig-param">m1</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kidsproc/kidsmodel.html#KidsProbeGainWithLinTrend.evaluate"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kidsproc.kidsmodel.KidsProbeGainWithLinTrend.evaluate" title="Permalink to this definition">¶</a></dt>
+<dd><p>Evaluate the model on some input variables.</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper"><h3>Page Contents</h3>
+<ul>
+<li><a class="reference internal" href="#">KidsProbeGainWithLinTrend</a></li>
+</ul>
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+<footer class="footer">
+  <p class="pull-right">
+    <a href="../_sources/api/kidsproc.kidsmodel.KidsProbeGainWithLinTrend.rst.txt"
+       rel="nofollow">Page Source</a> &nbsp;
+    <a href="#">Back to Top</a></p>
+  <p>
+    &copy; Copyright 2020, Zhiyuan Ma.<br/>
+    Created using <a href="http://www.sphinx-doc.org/en/stable/">Sphinx</a> 2.4.3. &nbsp;
+    Last built 02 Mar 2020. <br/>
+  </p>
+</footer>
+  </body>
+</html>

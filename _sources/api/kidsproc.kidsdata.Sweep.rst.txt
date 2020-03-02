@@ -1,0 +1,31 @@
+Sweep
+=====
+
+.. currentmodule:: kidsproc.kidsdata
+
+.. autoclass:: Sweep
+   :show-inheritance:
+
+   .. rubric:: Attributes Summary
+
+   .. autosummary::
+
+      ~Sweep.fs
+      ~Sweep.iqs
+
+   .. rubric:: Methods Summary
+
+   .. autosummary::
+
+      ~Sweep.d21
+      ~Sweep.diqs_df
+
+   .. rubric:: Attributes Documentation
+
+   .. autoattribute:: fs
+   .. autoattribute:: iqs
+
+   .. rubric:: Methods Documentation
+
+   .. automethod:: d21
+   .. automethod:: diqs_df

@@ -1,0 +1,21 @@
+TimeStreamMixin
+===============
+
+.. currentmodule:: kidsproc.kidsdata
+
+.. autoclass:: TimeStreamMixin
+   :show-inheritance:
+
+   .. rubric:: Attributes Summary
+
+   .. autosummary::
+
+      ~TimeStreamMixin.time_axis
+      ~TimeStreamMixin.time_axis_unit
+      ~TimeStreamMixin.time_wcs
+
+   .. rubric:: Attributes Documentation
+
+   .. autoattribute:: time_axis
+   .. autoattribute:: time_axis_unit
+   .. autoattribute:: time_wcs

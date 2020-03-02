@@ -1,0 +1,45 @@
+KidsProbeGainWithGeometry
+=========================
+
+.. currentmodule:: kidsproc.kidsmodel
+
+.. autoclass:: KidsProbeGainWithGeometry
+   :show-inheritance:
+
+   .. rubric:: Attributes Summary
+
+   .. autosummary::
+
+      ~KidsProbeGainWithGeometry.Qc
+      ~KidsProbeGainWithGeometry.Qi
+      ~KidsProbeGainWithGeometry.fp
+      ~KidsProbeGainWithGeometry.g
+      ~KidsProbeGainWithGeometry.g0
+      ~KidsProbeGainWithGeometry.g1
+      ~KidsProbeGainWithGeometry.param_names
+      ~KidsProbeGainWithGeometry.phi_c
+      ~KidsProbeGainWithGeometry.phi_g
+      ~KidsProbeGainWithGeometry.tau
+
+   .. rubric:: Methods Summary
+
+   .. autosummary::
+
+      ~KidsProbeGainWithGeometry.evaluate
+
+   .. rubric:: Attributes Documentation
+
+   .. autoattribute:: Qc
+   .. autoattribute:: Qi
+   .. autoattribute:: fp
+   .. autoattribute:: g
+   .. autoattribute:: g0
+   .. autoattribute:: g1
+   .. autoattribute:: param_names
+   .. autoattribute:: phi_c
+   .. autoattribute:: phi_g
+   .. autoattribute:: tau
+
+   .. rubric:: Methods Documentation
+
+   .. automethod:: evaluate
