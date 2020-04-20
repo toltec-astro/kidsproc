@@ -8,6 +8,7 @@ from .timestream_mixin import TimeStreamMixin
 from .sweep_mixin import SweepMixin
 from cached_property import cached_property
 from tollan.utils.log import get_logger, timeit
+import astropy.units as u
 
 
 class Sweep(SweepMixin, NDDataRef):
@@ -34,7 +35,10 @@ class Sweep(SweepMixin, NDDataRef):
     def d21(self, **kwargs):
         if self._d21 is None:
             self._d21 = self._make_d21(**kwargs)
-        return self._d21
+        fs, adiqs, adiqscov = self._d21
+        if hasattr(fs, 'unit'):
+            return fs, adiqs, adiqscov
+        return fs * u.Hz, adiqs, adiqscov
 
     @timeit
     def _make_d21(
