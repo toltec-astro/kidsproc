@@ -33,6 +33,7 @@ class Sweep(SweepMixin, NDDataRef):
     _d21 = None
 
     def d21(self, **kwargs):
+        # if self._d21 is None or len(kwargs) > 0:
         if self._d21 is None:
             self._d21 = self._make_d21(**kwargs)
         fs, adiqs, adiqscov = self._d21
@@ -66,6 +67,8 @@ class Sweep(SweepMixin, NDDataRef):
             Apply smooth to the IQs *before* the gradient operation.
         """
         logger = get_logger()
+        if fstep is None and resample is None:
+            fstep = 1000.
         if not (bool(fstep is not None) ^ bool(resample is not None)):
             raise ValueError("only one of fstep or resample can be specified")
 
