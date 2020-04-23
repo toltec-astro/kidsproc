@@ -65,8 +65,10 @@ def _get_func_args(func):
 
 def _set_mutual_inversion(cls1, cls2):
 
-    cls1.inverse = property(lambda self: cls2())
-    cls2.inverse = property(lambda self: cls1())
+    cls1.inverse = property(lambda self: cls2(
+        n_models=len(self), model_set_axis=self.model_set_axis))
+    cls2.inverse = property(lambda self: cls1(
+        n_models=len(self), model_set_axis=self.model_set_axis))
 
 
 class _ResonanceCircleTransformMixin(object):

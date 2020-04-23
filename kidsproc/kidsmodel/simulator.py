@@ -1,21 +1,51 @@
 #! /usr/bin/env python
 import numpy as np
-# from astropy import units as u
-from astropy.modeling import models
-from astropy.modeling import fix_inputs
+from astropy.modeling import Parameter, Model
 from . import (
         # ResonanceCircleComplex,
         ResonanceCircleInv,
         ResonanceCircleComplex,
         ResonanceCircleComplexInv,
-        ResonanceCircleSweepComplex,
-        ResonanceCircleProbeComplex,
+        # ResonanceCircleSweepComplex,
+        # ResonanceCircleProbeComplex,
         ReadoutIQToComplex,
         OpticalDetune,
         InstrumentalDetune,
-        ResonanceCircleQrInv
+        ResonanceCircleQrInv,
+        _Model
         )
 from tollan.utils.log import get_logger
+
+
+class Identity1D(_Model):
+
+    n_inputs = 1
+    n_outputs = 1
+
+    @staticmethod
+    def evaluate(x):
+        return x
+
+    def inverse(self):
+        return self
+
+
+class _x2rx(Model):
+
+    n_inputs = 1
+    n_outputs = 2
+
+    Qr = Parameter(default=1e4)
+
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
+        self.inputs = ('x', )
+        self.outputs = ('r', 'x')
+        self._Qr2r = ResonanceCircleQrInv()
+
+    def evaluate(self, x, Qr):
+        r = self._Qr2r(Qr)
+        return np.tile(r, (x.shape[0], 1)), x.T
 
 
 class KidsSimulator(object):
@@ -31,35 +61,20 @@ class KidsSimulator(object):
         self._responsivity = responsivity
         self._n_models = self._fr.shape[0]
 
-        m_info = ['summary of kids simulator models:', ]
-        sep = '-*' * 40
-        m_info.append(f"{sep}\nx sweep:\n{self._x_sweep}")
-        m_info.append(f"{sep}\nf sweep:\n{self._f_sweep}")
-        m_info.append(f"{sep}\nx probe:\n{self._x_probe}")
-        m_info.append(f"{sep}\nf_probe:\n{self._f_probe}")
-        m_info.append(f"{sep}\np_probe:\n{self._p_probe}")
-        m_info.append(f"{sep}")
-        self.logger.info('\n'.join(m_info))
+        # m_info = ['summary of kids simulator models:', ]
+        # sep = '-*' * 40
+        # m_info.append(f"{sep}\nx sweep:\n{self._x_sweep}")
+        # m_info.append(f"{sep}\nf sweep:\n{self._f_sweep}")
+        # m_info.append(f"{sep}\nx probe:\n{self._x_probe}")
+        # m_info.append(f"{sep}\nf_probe:\n{self._f_probe}")
+        # m_info.append(f"{sep}\np_probe:\n{self._p_probe}")
+        # m_info.append(f"{sep}")
+        # self.logger.info('\n'.join(m_info))
 
     @property
-    def _Qr2r(self):
-        """Model to convert Qr to r."""
-        return ResonanceCircleQrInv(n_models=self._n_models)
-
-    @property
-    def _combine_readout(self):
-        """Model to combine the readout to complex values."""
-        return ReadoutIQToComplex(n_models=self._n_models)
-
-    @property
-    def _rx2iqcomplex(self):
-        """Model to convert rx to iq in complex."""
-        return ResonanceCircleComplex(n_models=self._n_models)
-
-    @property
-    def _iq2rxcomplex(self):
-        """Model to convert iq to rx in complex."""
-        return ResonanceCircleComplexInv(n_models=self._n_models)
+    def _x2rx(self):
+        """Model to create (r, x) from x."""
+        return _x2rx(Qr=self._Qr, n_models=self._n_models)
 
     @property
     def _iq2rx(self):
@@ -67,11 +82,19 @@ class KidsSimulator(object):
         return ResonanceCircleInv(n_models=self._n_models)
 
     @property
-    def _fp2x(self):
-        """Model to evaluate x at fp for given fr."""
-        return fix_inputs(
-                InstrumentalDetune(n_models=self._n_models),
-                {'fr': self._fr})
+    def _make_complex(self):
+        """Model to combine real and imagine parts as complex values."""
+        return ReadoutIQToComplex(n_models=self._n_models)
+
+    @property
+    def _complex_rx2iq(self):
+        """Model to convert rx to iq in complex."""
+        return ResonanceCircleComplex(n_models=self._n_models)
+
+    @property
+    def _complex_iq2rx(self):
+        """Model to convert iq to rx in complex."""
+        return ResonanceCircleComplexInv(n_models=self._n_models)
 
     @property
     def _p2x(self):
@@ -83,53 +106,19 @@ class KidsSimulator(object):
                 n_models=self._n_models)
 
     @property
-    def _x2iq(self):
-        """Model to evaluate IQ at x for given Qr."""
-        return fix_inputs(
-                (self._Qr2r & models.Scale(
-                    np.ones((self._n_models, 1), dtype=float),
-                    n_models=self._n_models)) |
-                self._combine_readout | self._rx2iqcomplex,
-                {
-                    'Qr': self._Qr
-                    })
-
-    @property
     def _x_sweep(self):
-        """Alias of `_x2iq`"""
-        return self._x2iq
+        """Model to evaluate IQ at x for given Qr."""
+        return self._x2rx | self._make_complex | self._complex_rx2iq
 
-    @property
-    def _f_sweep(self):
-        """Model to evaluate IQ at f for given fr and Qr."""
-        return ResonanceCircleSweepComplex(fr=self._fr, Qr=self._Qr)
+    # @property
+    # def _f_sweep(self):
+    #     """Model to evaluate IQ at f for given fr and Qr."""
+    #     return ResonanceCircleSweepComplex(fr=self._fr, Qr=self._Qr)
 
-    @property
-    def _x_probe(self):
-        """Alias of `_x2iq`"""
-        return self._x2iq
-
-    @property
-    def _f_probe(self):
-        """Model to evaluate IQ at (fr, Qr) for given fp."""
-        return ResonanceCircleProbeComplex()
-
-    @property
-    def _p_probe(self):
-        """Model to evaluate IQ at (Qr, p) for given background and
-        responsivity."""
-        return (self._Qr2r & self._p2x) | \
-            self._combine_readout | self._rx2iqcomplex
-
-    @property
-    def fwhm_x(self):
-        """Return the resonance FWHM in unit of x."""
-        return 1. / self._Qr
-
-    @property
-    def fwhm_f(self):
-        """Return the resonance FWHM in unit of Hz."""
-        return self.fwhm_x * self._fr
+    # @property
+    # def _f_probe(self):
+    #     """Model to evaluate IQ at (fr, Qr) for given fp."""
+    #     return ResonanceCircleProbeComplex()
 
     def sweep_x(self, n_steps=None, n_fwhms=None, xlim=None):
         """Return a resonance circle sweep."""
@@ -147,13 +136,16 @@ class KidsSimulator(object):
         """Return detector response for given optical power and probe
         frequency."""
         p2x = self._p2x
-        p2x.n_models = self._n_models
+        x2rx = self._x2rx
         self.logger.debug(f"probe with n_mdoels={len(p2x)}")
-        rs = np.full(pwrs.shape, self._Qr2r(self._Qr))
-        xs = p2x(pwrs)
+        rs, xs = (p2x | x2rx)(pwrs)
         if fp is not None:
-            xs = xs + self._fp2x(fp)
-        iqs = self._x_probe(xs)
+            broadcast_shape = [1, ] * pwrs.ndim
+            broadcast_shape[p2x.model_set_axis] = len(p2x)
+            xs_instru = InstrumentalDetune()(fp, self._fr).reshape(
+                    tuple(broadcast_shape))
+            xs = xs + xs_instru
+        iqs = (self._make_complex | self._complex_rx2iq)(rs, xs)
         return rs, xs, iqs
 
     def solve_x(self, *args):
@@ -161,5 +153,17 @@ class KidsSimulator(object):
         """
         if len(args) == 1:
             # complex
-            return self._iq2rxcomplex(args[0])
+            return self._complex_iq2rx(args[0])
         return self._iq2rx(*args)
+
+    @property
+    def fwhm_x(self):
+        """Return the resonance FWHM in unit of x."""
+        return 1. / self._Qr
+
+    @property
+    def fwhm_f(self):
+        """Return the resonance FWHM in unit of Hz."""
+        return self.fwhm_x * self._fr
+
+
