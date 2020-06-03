@@ -25,7 +25,7 @@ class KidsDataTypeMeta(ExtensionTypeMeta):
     def __new__(mcls, name, bases, attrs):
         cls = super().__new__(mcls, name, bases, attrs)
         # Classes using this metaclass are automatically added to the list of
-        # jwst types and JWSTExtensions.types.
+        # kidsdata types and KidsDataExtensions.types.
         if issubclass(cls, KidsDataType):
             _kidsdata_types.add(cls)
         return cls
