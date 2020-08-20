@@ -4,8 +4,8 @@ from pathlib import Path
 from asdf import util
 from asdf.extension import BuiltinExtension
 
-from .wcs.tags import *  # noqa: F403, F401
-from .kidsdata_types import _kidsdata_types, KidsDataType
+from .tags import *  # noqa: F403, F401
+from .types import _kidsdata_types, KidsDataType
 
 
 SCHEMA_PATH = Path(__file__).with_name('schemas').resolve()

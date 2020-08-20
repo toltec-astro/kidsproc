@@ -1,7 +1,7 @@
-# Licensed under a 3-clause BSD style license - see LICENSE.rst
-# -*- coding: utf-8 -*-
-from ...kidsdata_types import KidsDataType
-from ..frames import (NDDataFrame, )
+#! /usr/bin/env python
+
+from ..types import KidsDataType
+from ...wcs.frames import (NDDataFrame, )
 
 
 _REQUIRES = ['astropy', 'gwcs']
@@ -11,13 +11,13 @@ __all__ = ["NDDataFrameType", ]
 
 
 class NDDataFrameType(KidsDataType):
+
     name = "nddataframe"
-    requires = _REQUIRES
     types = [NDDataFrame, ]
     version = '1.0.0'
 
     @classmethod
-    def _from_tree(cls, node, ctx):
+    def from_tree(cls, node, ctx):
         kwargs = {'name': node['name']}
 
         if 'naxes' in node:
@@ -26,10 +26,10 @@ class NDDataFrameType(KidsDataType):
         if 'axes_order' in node:
             kwargs['axes_order'] = tuple(node['axes_order'])
 
-        return kwargs
+        return NDDataFrame(**kwargs)
 
     @classmethod
-    def _to_tree(cls, frame, ctx):
+    def to_tree(cls, frame, ctx):
 
         node = {}
 
@@ -43,19 +43,6 @@ class NDDataFrameType(KidsDataType):
         return node
 
     @classmethod
-    def _assert_equal(cls, old, new):
-        assert old.name == new.name  # nosec
-        assert old.axes_order == new.axes_order  # nosec
-
-    @classmethod
     def assert_equal(cls, old, new):
-        cls._assert_equal(old, new)
-
-    @classmethod
-    def from_tree(cls, node, ctx):
-        node = cls._from_tree(node, ctx)
-        return NDDataFrame(**node)
-
-    @classmethod
-    def to_tree(cls, frame, ctx):
-        return cls._to_tree(frame, ctx)
+        assert old.name == new.name
+        assert old.axes_order == new.axes_order

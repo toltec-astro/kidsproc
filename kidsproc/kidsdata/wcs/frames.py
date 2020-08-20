@@ -18,7 +18,6 @@ class NDDataFrame(object):
     An n-dimensional index frame.
 
     This can be used to represent the indices of a n-dim array data.
-    This is different from `gwcs.coordindate_frame`
 
     Parameters
     ----------
