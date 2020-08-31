@@ -6,7 +6,7 @@ from astropy.nddata import NDDataRef
 import astropy.units as u
 from .utils import ExtendedNDDataRef, FrequencyDivisionMultiplexingDataRef
 import numpy as np
-from tollan.utils.log import timeit
+from tollan.utils.log import timeit, get_logger
 
 
 __all__ = ['Sweep', 'MultiSweep', ]
@@ -352,6 +352,12 @@ class MultiSweep(_MultiSweepDataRef, SweepMixin):
         d21.coverage = adiqscov
         return d21
 
+    def make_D21(self, cached=True, *args, **kwargs):
+        if cached and hasattr(self, '_D21'):
+            return self.D21
+        self._D21 = self._make_d21(*args, **kwargs)
+        return self.D21
+
     @staticmethod
     def diqs_df(iqs, fs, smooth=None):
         if smooth in (None, 0):
@@ -367,3 +373,10 @@ class MultiSweep(_MultiSweepDataRef, SweepMixin):
         for i in range(iqs.shape[0]):
             diqs[i] = np.gradient(iqs[i], fs[i])
         return diqs
+
+    def __str__(self):
+        if self.data is None:
+            shape = '(empty)'
+        else:
+            shape = self.data.shape
+        return f'{self.__class__.__name__}{shape}'

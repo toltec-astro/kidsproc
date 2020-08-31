@@ -31,6 +31,13 @@ class TimeStream(FrequencyDivisionMultiplexingDataRef):
 
     _data_variables = {'I', 'Q', 'r', 'x'}
 
+    def __str__(self):
+        if self.data is None:
+            shape = '(empty)'
+        else:
+            shape = self.data.shape
+        return f'{self.__class__.__name__}{shape}'
+
     @staticmethod
     def _make_data_attr_name(attr):
         return f'_{attr}'
