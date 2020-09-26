@@ -88,20 +88,30 @@ class Sweep(ExtendedNDDataRef, SweepMixin):
         The frequency.
     D21 : `astropy.units.Quantity`
         The D21 spectrum.
+    extra_attrs : dict, optional
+        A dict of extra data to attach to this sweep. They has to be
+        of the same shape as `frequency`.
     kwargs :
         keyword arguments to pass to `astropy.nddata.NDDataRef`.
     """
 
+    _extra_attrs_to_slice = None
+
     def _slice_extra(self, item):
         # this returns extra sliced attributes when slicing
-        return {
+        result = {
                 '_frequency': self._frequency[item],
                 '_D21': self._D21[item],
                 }
+        if self._extra_attrs_to_slice is not None:
+            for a in self._extra_attrs_to_slice:
+                result[a] = getattr(self, a)[item]
+        return result
 
     def __init__(
             self,
             S21=None, frequency=None, D21=None,
+            extra_attrs=None,
             **kwargs):
 
         if 'data' in kwargs:
@@ -141,8 +151,25 @@ class Sweep(ExtendedNDDataRef, SweepMixin):
             S21 = self._validate_S21(S21)
             kwargs['data'] = S21.data
             kwargs['unit'] = S21.unit
+        elif D21 is not None:
+            kwargs['data'] = D21.data
+            kwargs['unit'] = D21.unit
 
         super().__init__(**kwargs)
+
+        # handle extra attrs
+        if extra_attrs is not None:
+            # add extra data objects
+            if any(hasattr(self, a) for a in extra_attrs.keys()):
+                raise ValueError(
+                        "name of extra_attrs conflicts with existing attts.")
+            extra_attrs_to_slice = list()
+            for k, v in extra_attrs.items():
+                if v.shape != self.data.shape:
+                    raise ValueError("invalid shape of extra attr")
+                setattr(self, k, v)
+                extra_attrs_to_slice.append(k)
+            self._extra_attrs_to_slice = extra_attrs_to_slice
 
 
 class _MultiSweepDataRef(FrequencyDivisionMultiplexingDataRef):
@@ -280,12 +307,41 @@ class MultiSweep(_MultiSweepDataRef, SweepMixin):
         super().__init__(
                 tones=tones, sweeps=sweeps, frequency=frequency, **kwargs)
 
+    @property
+    def unified(self):
+        """The associated unified `Sweep` object."""
+        return self._unified
+
+    def set_unified(self, sweep):
+        """Set the associated unified `Sweep` object.
+
+        Parameters
+        ----------
+        sweep : `Sweep`
+            The `Sweep` object that contains the channel merged data.
+        """
+        self._unified = sweep
+
+    def make_unified(self, cached=True, *args, **kwargs):
+        """Create unified sweep with D21 spectrum.
+
+        Parameters
+        ----------
+        cached : bool, optional
+            If True and D21 exists, it is returned.
+        args, kwargs :
+            The argument passed to `_make_D21`.
+        """
+        if not (cached and hasattr(self, '_unified')):
+            self.set_unified(self._make_unified(*args, **kwargs))
+        return self.unified
+
     @timeit
-    def _make_d21(
+    def _make_unified(
             self, flim=None, fstep=None, resample=None,
             exclude_edge_samples=10,
             smooth=3):
-        """The unified ``D21`` spectrum.
+        """Compute the unified ``D21`` spectrum.
 
         Parameters
         ----------
@@ -346,17 +402,13 @@ class MultiSweep(_MultiSweepDataRef, SweepMixin):
         m = adiqscov > 0
         adiqs[m] /= adiqscov[m]
         adiqs[np.isnan(adiqs)] = 0
-        d21 = Sweep(
+        unified = Sweep(
                 S21=None, D21=adiqs, frequency=fs,
+                extra_attrs={
+                    'd21_cov': adiqscov,
+                    }
                 )
-        d21.coverage = adiqscov
-        return d21
-
-    def make_D21(self, cached=True, *args, **kwargs):
-        if cached and hasattr(self, '_D21'):
-            return self.D21
-        self._D21 = self._make_d21(*args, **kwargs)
-        return self.D21
+        return unified
 
     @staticmethod
     def diqs_df(iqs, fs, smooth=None):
