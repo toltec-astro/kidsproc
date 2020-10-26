@@ -207,6 +207,8 @@ class _MultiSweepDataRef(FrequencyDivisionMultiplexingDataRef):
             # create the frequency grid
             if tones is not None:
                 frequency = self._make_frequency_grid(tones, sweeps)
+        else:
+            frequency = SweepMixin._validate_frequency(frequency)
 
         # check lengths of axis
         if data is not None and frequency is not None:
@@ -363,7 +365,7 @@ class MultiSweep(_MultiSweepDataRef, SweepMixin):
         """
         logger = get_logger()
         if fstep is None and resample is None:
-            fstep = 1000.
+            fstep = 1000. << u.Hz
         if not (bool(fstep is not None) ^ bool(resample is not None)):
             raise ValueError("only one of fstep or resample can be specified")
 
@@ -378,19 +380,23 @@ class MultiSweep(_MultiSweepDataRef, SweepMixin):
                 f"build d21 with fs=[{fmin}, {fmax}, {fstep}]"
                 f" exclude_edge_samples={exclude_edge_samples}"
                 f" original fs=[{fs.min()}, {fs.max()}]")
-        fs = np.arange(fmin, fmax, fstep)
+        fs = np.arange(
+                fmin.to_value(u.Hz),
+                fmax.to_value(u.Hz),
+                fstep.to_value(u.Hz)) << u.Hz
         adiqs0 = np.abs(self.diqs_df(self.S21, self.frequency, smooth=smooth))
-        adiqs = np.zeros(fs.shape, dtype=np.double)
+        adiqs = np.zeros(fs.shape, dtype=np.double) << u.adu / u.Hz
         adiqscov = np.zeros(fs.shape, dtype=int)
         if exclude_edge_samples > 0:
             es = slice(exclude_edge_samples, -exclude_edge_samples)
         else:
             es = slice(None)
 
-        for i in range(self.fs.shape[0]):
-            m = (fs >= self.fs[i].min()) & (fs <= self.fs[i].max())
+        for i in range(self.frequency.shape[0]):
+            m = (fs >= self.frequency[i].min()
+                    ) & (fs <= self.frequency[i].max())
             tmp = np.interp(
-                    fs[m], self.fs[i, es], adiqs0[i, es],
+                    fs[m], self.frequency[i, es], adiqs0[i, es],
                     left=np.nan,
                     right=np.nan,
                     )
@@ -420,11 +426,21 @@ class MultiSweep(_MultiSweepDataRef, SweepMixin):
                 arr_r = uniform_filter1d(arr.real, *args, **kwargs)
                 arr_i = uniform_filter1d(arr.imag, *args, **kwargs)
                 return arr_r + 1.j * arr_i
-            iqs = csmooth(iqs, size=smooth, mode='mirror')
-        diqs = np.empty_like(iqs)
+            iqs = csmooth(iqs, size=smooth, mode='mirror') << u.adu
+        diqs = np.empty(iqs.shape, dtype=iqs.dtype) << (u.adu / u.Hz)
         for i in range(iqs.shape[0]):
             diqs[i] = np.gradient(iqs[i], fs[i])
         return diqs
+
+    def get_sweep(self, tone_id, **kwargs):
+        """Return a `Sweep` object for a single channel."""
+
+        s = slice(tone_id, tone_id + 1)
+        return Sweep(
+                frequency=self.frequency[tone_id],
+                S21=self.S21[tone_id],
+                D21=np.abs(self.diqs_df(
+                    self.S21[s], self.frequency[s], **kwargs)[0]))
 
     def __str__(self):
         if self.data is None:
