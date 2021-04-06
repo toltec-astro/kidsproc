@@ -132,7 +132,7 @@ class KidsSimulator(object):
         iqs = self._x_sweep(xs)
         return xs, iqs
 
-    def probe_p(self, pwrs, fp=None):
+    def probe_p(self, pwrs, fp=None, readout_model=None):
         """Return detector response for given optical power and probe
         frequency."""
         p2x = self._p2x
@@ -146,7 +146,15 @@ class KidsSimulator(object):
                     tuple(broadcast_shape))
             xs = xs + xs_instru
         iqs = (self._make_complex | self._complex_rx2iq)(rs, xs)
-        return rs, xs, iqs
+        if readout_model is None:
+            return rs, xs, iqs
+        iqs_readout = readout_model(iqs, xs * self._fr[:, np.newaxis])
+        self.logger.debug(
+                f'apply readout model '
+                f'[{np.abs(iqs).min()}:{np.abs(iqs).max()}] -> '
+                f'[{np.abs(iqs_readout).min()}:{np.abs(iqs_readout).max()}]'
+                )
+        return rs, xs, iqs_readout
 
     def solve_x(self, *args):
         """Return x for given detector response.
@@ -165,5 +173,3 @@ class KidsSimulator(object):
     def fwhm_f(self):
         """Return the resonance FWHM in unit of Hz."""
         return self.fwhm_x * self._fr
-
-

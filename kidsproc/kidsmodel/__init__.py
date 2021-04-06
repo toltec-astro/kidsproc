@@ -516,6 +516,35 @@ def _tied_Qi(m):
     return m.Qr * m.Qc / (m.Qc - m.Qr)
 
 
+class ReadoutGainWithLinTrend(
+        _ReadoutReprComplexMixin,
+        _KidsReadoutMixin,
+        _ReadoutGainWithLinTrendMixin,
+        _ComposableModelBase):
+    """Model that transforms S21 with
+    an effective gain and a linear baseline trend.
+    """
+    g0 = Parameter(default=1.)
+    g1 = Parameter(default=0.)
+    g = Parameter(tied=_tied_g_amp)
+    phi_g = Parameter(tied=_tied_g_phase)
+    f0 = Parameter(default=1e9, unit=u.Hz, min=0.)
+    k0 = Parameter(default=0.)
+    k1 = Parameter(default=0.)
+    m0 = Parameter(default=0.)
+    m1 = Parameter(default=0.)
+
+    n_inputs = 2
+
+    def _set_inputs(self):
+        self.inputs = ('S', 'f')
+
+    @staticmethod
+    def evaluate(S, f, g0, g1, g, phi_g, f0, k0, k1, m0, m1):
+        return _KidsReadoutMixin._apply_transform(
+                (S, f), locals(), ReadoutGainWithLinTrend)
+
+
 class KidsSweepGainWithLinTrend(
         _ResonanceCircleSweepMixin,
         _ReadoutReprComplexMixin,
