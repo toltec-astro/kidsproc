@@ -72,6 +72,10 @@ class KidsSimulator(object):
         # self.logger.info('\n'.join(m_info))
 
     @property
+    def fr(self):
+        return self._fr
+
+    @property
     def _x2rx(self):
         """Model to create (r, x) from x."""
         return _x2rx(Qr=self._Qr, n_models=self._n_models)
@@ -128,7 +132,7 @@ class KidsSimulator(object):
             xlim = (-0.5 * n_fwhms * self.fwhm_x,
                     0.5 * n_fwhms * self.fwhm_x)
         # get grid
-        xs = np.linspace(*xlim, n_steps)
+        xs = np.linspace(*xlim, n_steps).T
         iqs = self._x_sweep(xs)
         return xs, iqs
 
@@ -148,7 +152,7 @@ class KidsSimulator(object):
         iqs = (self._make_complex | self._complex_rx2iq)(rs, xs)
         if readout_model is None:
             return rs, xs, iqs
-        iqs_readout = readout_model(iqs, xs * self._fr[:, np.newaxis])
+        iqs_readout = readout_model(iqs, (xs + 1) * self._fr[:, np.newaxis])
         self.logger.debug(
                 f'apply readout model '
                 f'[{np.abs(iqs).min()}:{np.abs(iqs).max()}] -> '
