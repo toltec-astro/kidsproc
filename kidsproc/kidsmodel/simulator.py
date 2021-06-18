@@ -71,6 +71,13 @@ class KidsSimulator(object):
         # m_info.append(f"{sep}")
         # self.logger.info('\n'.join(m_info))
 
+    def copy(self, **kwargs):
+        kwargs.setdefault('fr', self._fr)
+        kwargs.setdefault('Qr', self._Qr)
+        kwargs.setdefault('background', self._background)
+        kwargs.setdefault('responsivity', self._responsivity)
+        return self.__class__(**kwargs)
+
     @property
     def fr(self):
         return self._fr
