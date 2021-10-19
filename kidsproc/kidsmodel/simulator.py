@@ -55,11 +55,16 @@ class KidsSimulator(object):
 
     def __init__(self, fr=None, Qr=None,
                  background=None, responsivity=None):
+        if np.asanyarray(fr).shape != np.asanyarray(Qr).shape:
+            raise ValueError("Qr and fr has to have the same shape")
         self._fr = fr
         self._Qr = Qr
         self._background = background
         self._responsivity = responsivity
-        self._n_models = self._fr.shape[0]
+        if np.isscalar(self._fr.value):
+            self._n_models = 1
+        else:
+            self._n_models = self._fr.shape[0]
 
         # m_info = ['summary of kids simulator models:', ]
         # sep = '-*' * 40
