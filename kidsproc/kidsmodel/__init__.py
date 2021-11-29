@@ -1,9 +1,6 @@
 #! /usr/bin/env python
 
 from astropy.modeling import Parameter, Model
-from astropy.modeling.core import (
-        _prepare_inputs_model_set, _prepare_inputs_single_model,
-        _validate_input_shapes)
 import numpy as np
 from astropy import units as u
 import inspect
@@ -23,40 +20,32 @@ class _Model(Model):
         applicable) the units of the input will be compatible with the evaluate
         method.
         """
-
         # When we instantiate the model class, we make sure that __call__ can
         # take the following two keyword arguments: model_set_axis and
         # equivalencies.
-
         if model_set_axis is None:
             # By default the model_set_axis for the input is assumed to be the
             # same as that for the parameters the model was defined with
             # TODO: Ensure that negative model_set_axis arguments are respected
             model_set_axis = self.model_set_axis
 
-        n_models = len(self)
-
         params = [getattr(self, name) for name in self.param_names]
         inputs = [np.asanyarray(_input, dtype=None) for _input in inputs]
 
-        _validate_input_shapes(inputs, self.inputs, n_models,
-                               model_set_axis, self.standard_broadcasting)
+        self._validate_input_shapes(inputs, self.inputs, model_set_axis)
 
-        if 'inputs_map' in kwargs:
-            inputs_map = kwargs['inputs_map']
-        else:
-            inputs_map = None
+        inputs_map = kwargs.get('inputs_map', None)
+
         inputs = self._validate_input_units(inputs, equivalencies, inputs_map)
 
         # The input formatting required for single models versus a multiple
         # model set are different enough that they've been split into separate
         # subroutines
-        if n_models == 1:
-            return _prepare_inputs_single_model(self, params, inputs,
-                                                **kwargs)
+        if self._n_models == 1:
+            return self._prepare_inputs_single_model(params, inputs, **kwargs)
         else:
-            return _prepare_inputs_model_set(self, params, inputs, n_models,
-                                             model_set_axis, **kwargs)
+            return self._prepare_inputs_model_set(params, inputs,
+                                                  model_set_axis, **kwargs)
 
 
 def _get_func_args(func):
@@ -286,7 +275,7 @@ class ReadoutIQToComplex(_ReadoutReprComplexMixin, _ComposableModelBase):
         self.inputs = ('I', 'Q')
 
     @staticmethod
-    def evaluate(I, Q):
+    def evaluate(I, Q):  # noqa: E741
         return super(
                 ReadoutIQToComplex, ReadoutIQToComplex)._repr_apply(I, Q)
 
