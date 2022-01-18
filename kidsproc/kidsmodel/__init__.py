@@ -518,8 +518,8 @@ class ReadoutGainWithLinTrend(
     g = Parameter(tied=_tied_g_amp)
     phi_g = Parameter(tied=_tied_g_phase)
     f0 = Parameter(default=1e9, unit=u.Hz, min=0.)
-    k0 = Parameter(default=0.)
-    k1 = Parameter(default=0.)
+    k0 = Parameter(default=0., unit=u.s)
+    k1 = Parameter(default=0., unit=u.s)
     m0 = Parameter(default=0.)
     m1 = Parameter(default=0.)
 
@@ -551,8 +551,8 @@ class KidsSweepGainWithLinTrend(
     g = Parameter(tied=_tied_g_amp)
     phi_g = Parameter(tied=_tied_g_phase)
     f0 = Parameter(default=1e9, unit=u.Hz, min=0.)
-    k0 = Parameter(default=0.)
-    k1 = Parameter(default=0.)
+    k0 = Parameter(default=0., unit=u.s)
+    k1 = Parameter(default=0., unit=u.s)
     m0 = Parameter(default=0.)
     m1 = Parameter(default=0.)
 
@@ -604,8 +604,8 @@ class KidsProbeGainWithLinTrend(
     g = Parameter(tied=_tied_g_amp)
     phi_g = Parameter(tied=_tied_g_phase)
     f0 = Parameter(default=1e9, unit=u.Hz, min=0.)
-    k0 = Parameter(default=0.)
-    k1 = Parameter(default=0.)
+    k0 = Parameter(default=0., unit=u.s)
+    k1 = Parameter(default=0., unit=u.s)
     m0 = Parameter(default=0.)
     m1 = Parameter(default=0.)
 
