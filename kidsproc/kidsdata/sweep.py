@@ -342,7 +342,7 @@ class MultiSweep(_MultiSweepDataRef, SweepMixin):
     def _make_unified(
             self, flim=None, fstep=None, resample=None,
             exclude_edge_samples=10,
-            smooth=3):
+            smooth=11, method='savgol'):
         """Compute the unified ``D21`` spectrum.
 
         Parameters
@@ -361,7 +361,9 @@ class MultiSweep(_MultiSweepDataRef, SweepMixin):
             Number of samples to exclude at the tone edges.
 
         smooth: int
-            Apply smooth to the IQs *before* the gradient operation.
+            Apply smooth to the IQs for D21 computation.
+        method: 'savgol' or 'gradient'
+            The method for D21 compuatation.
         """
         logger = get_logger()
         if fstep is None and resample is None:
@@ -379,12 +381,12 @@ class MultiSweep(_MultiSweepDataRef, SweepMixin):
         logger.debug(
                 f"build d21 with fs=[{fmin}, {fmax}, {fstep}]"
                 f" exclude_edge_samples={exclude_edge_samples}"
-                f" original fs=[{fs.min()}, {fs.max()}]")
+                f" original fs=[{fs.min()}, {fs.max()}] smooth={smooth} method={method}")
         fs = np.arange(
                 fmin.to_value(u.Hz),
                 fmax.to_value(u.Hz),
                 fstep.to_value(u.Hz)) << u.Hz
-        adiqs0 = np.abs(self.diqs_df(self.S21, self.frequency, smooth=smooth))
+        adiqs0 = np.abs(self.diqs_df(self.S21, self.frequency, smooth=smooth, method=method))
         adiqs = np.zeros(fs.shape, dtype=np.double) << u.adu / u.Hz
         adiqscov = np.zeros(fs.shape, dtype=int)
         if exclude_edge_samples > 0:
@@ -417,19 +419,36 @@ class MultiSweep(_MultiSweepDataRef, SweepMixin):
         return unified
 
     @staticmethod
-    def diqs_df(iqs, fs, smooth=None):
+    def diqs_df(iqs, fs, smooth=None, method='gradient'):
         if smooth in (None, 0):
-            pass
-        else:
-            def csmooth(arr, *args, **kwargs):
-                from scipy.ndimage.filters import uniform_filter1d
-                arr_r = uniform_filter1d(arr.real, *args, **kwargs)
-                arr_i = uniform_filter1d(arr.imag, *args, **kwargs)
-                return arr_r + 1.j * arr_i
-            iqs = csmooth(iqs, size=smooth, mode='mirror') << u.adu
+            if method != 'gradient':
+                raise ValueError("no-smooth only works for gradient")
+            else:
+                pass
         diqs = np.empty(iqs.shape, dtype=iqs.dtype) << (u.adu / u.Hz)
-        for i in range(iqs.shape[0]):
-            diqs[i] = np.gradient(iqs[i], fs[i])
+        if method == 'gradient':
+            if smooth is not None and smooth > 0:
+                def csmooth(arr, *args, **kwargs):
+                    from scipy.ndimage.filters import uniform_filter1d
+                    arr_r = uniform_filter1d(arr.real, *args, **kwargs)
+                    arr_i = uniform_filter1d(arr.imag, *args, **kwargs)
+                    return arr_r + 1.j * arr_i
+                iqs = csmooth(iqs, size=smooth, mode='mirror') << u.adu
+            for i in range(iqs.shape[0]):
+                diqs[i] = np.gradient(iqs[i], fs[i])
+        elif method == 'savgol':
+            from scipy.signal import savgol_filter
+            for i in range(iqs.shape[0]):
+                df = (fs[i][1] - fs[i][0]).to_value(u.Hz)
+                xx = savgol_filter(
+                        iqs[i].real.to_value(u.adu),
+                        window_length=smooth,
+                        polyorder=2, deriv=1, delta=df)
+                yy = savgol_filter(
+                        iqs[i].imag.to_value(u.adu),
+                        window_length=smooth,
+                        polyorder=2, deriv=1, delta=df)
+                diqs[i] = (xx + 1.j * yy) << u.adu / u.Hz
         return diqs
 
     def get_sweep(self, tone_id, **kwargs):
