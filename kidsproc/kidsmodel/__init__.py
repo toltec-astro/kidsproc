@@ -284,9 +284,9 @@ class ReadoutIQToComplex(_ReadoutReprComplexMixin, _ComposableModelBase):
         x = np.asanyarray(x, dtype=float)
         y = np.asanyarray(y, dtype=float)
         if x.shape == ():
-            x = np.full_like(y, np.asscalar(x))
+            x = np.full_like(y, x.item())
         elif y.shape == ():
-            y = np.full_like(x, np.asscalar(y))
+            y = np.full_like(x, y.item())
         return super().__call__(x, y, **kwargs)
 
 
