@@ -487,6 +487,10 @@ class _KidsReadoutMixin(object):
         args = (getattr(self, a) for a in self._get_inverse_transform_params())
         return super()._inverse_transform(S.T, f.T, *args).T
 
+    def rotate(self, S_derot, f):
+        args = (getattr(self, a) for a in self._get_transform_params())
+        return super()._transform(S_derot.T, f.T, *args).T
+
     @staticmethod
     def _apply_transform(args, locals_, cls):
         args += tuple(locals_[a] for a in cls._get_transform_params())
